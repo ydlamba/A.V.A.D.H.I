@@ -2,6 +2,9 @@
  * Server Implementation - UDP broadcaster
  * Broadcasts UDP on the network on the port 7447
  * And listens to TCP on port 7777
+ * For debugging purposes use the command
+ * gcc -Wall server.c -L. -levent -levent_core -lpthread $(mysql_config --libs)
+ * Make sure have libevent2 and mysql libraries installed
  */
 
 #include <stdio.h>
@@ -29,7 +32,7 @@
 #define BROADCAST_PORT   7447
 #define LISTEN_PORT      7777
 #define BROADCAST_ADDR   "255.255.255.255"
-#define BROADCAST_DELAY  2
+#define BROADCAST_DELAY  60
 #define MAX_TCP_CONN     10
 
 
@@ -42,9 +45,7 @@ struct mysql_conn_config {
 
 MYSQL *conn;        // MySql connection
 
-
 static struct event_base *evbase;
-
 
 char mac_address[30];
 char ip_address[20];

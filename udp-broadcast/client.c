@@ -1,3 +1,11 @@
+/**
+ * CClient Implementation
+ * Listens to UDP broadcasts on port 7447
+ * And sends mac_address using TCP to port 7777
+ * For debugging purposes use the command
+ * gcc -Wall client.c
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
