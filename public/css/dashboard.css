@@ -40,9 +40,11 @@
 	height: 2.4rem;
 	display: flex;
 	align-items: center;
+	padding-left: 3rem;
 	justify-content: center;
 	/*font-family: 'Roboto', sans-serif;*/
 	font-family: 'Ubuntu', sans-serif;
+	letter-spacing: 0.2rem;
 }
 
 .website-name h3 {
@@ -190,3 +192,13 @@ main {
 	flex: 1 0 0;
 }
 */
+
+
+.first-letter {
+	font-weight: 600;
+	font-size: 1.4rem;
+}
+
+.website-name h3{
+	letter-spacing: 0.2rem;
+}
