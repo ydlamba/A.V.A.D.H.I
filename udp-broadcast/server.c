@@ -21,17 +21,33 @@
 #include <event2/bufferevent.h>
 #include <event2/buffer.h>
 #include <pthread.h>
+#include <mysql/mysql.h>
+#include <time.h>
 
 
 #define BUFLEN           512
 #define BROADCAST_PORT   7447
 #define LISTEN_PORT      7777
 #define BROADCAST_ADDR   "255.255.255.255"
-#define BROADCAST_DELAY  10
+#define BROADCAST_DELAY  2
 #define MAX_TCP_CONN     10
 
 
+struct mysql_conn_config {
+    char *server;
+    char *user;
+    char *password;
+    char *database;
+};
+
+MYSQL *conn;        // MySql connection
+
+
 static struct event_base *evbase;
+
+
+char mac_address[30];
+char ip_address[20];
 
 struct client {
     int fd;
@@ -51,6 +67,40 @@ int display_error(char *s) {
     perror(s);
     return 1;
 }
+
+int mysql_connection_init() { 
+    struct mysql_conn_config config;
+    config.server    = "localhost";   // where the mysql database is
+    config.user      = "root";        // the root user of mysql   
+    config.password  = "password";    // the password of the root user in mysql
+    config.database  = "avadhi";      // the databse to pick
+
+    MYSQL *connection = mysql_init(NULL);
+ 
+    /* connect to the database with the details attached. */
+    if (!mysql_real_connect(connection,
+                        config.server,
+                        config.user,
+                        config.password,
+                        config.database,
+                        0, NULL, 0)) {
+      printf("Conection error : %s\n", mysql_error(connection));
+      exit(1);
+    }
+    conn = connection;
+    return 0;
+}
+
+
+MYSQL_RES* mysql_perform_query(MYSQL *connection, char *sql_query)
+{
+   if (mysql_query(connection, sql_query)) {
+      printf("MySQL query error : %s\n", mysql_error(connection));
+      die("Error in the database query ... ");
+   }
+   return mysql_use_result(connection);
+}
+
 
 /* Set a socket to non blocking mode */
 int setnonblock(int fd)
@@ -135,6 +185,25 @@ void *run_upd_broadcast_server(void * param) {
     return NULL;
 }
 
+int store_log_to_db() {
+    printf("MAC_ADDRESS :: %s\n", mac_address);
+    printf("IP_ADDRESS  :: %s\n", ip_address);
+
+    char query[BUFLEN];
+    MYSQL_RES *res;
+
+    sprintf(query,
+        "INSERT INTO "
+        "logs(mac_address, ip_address) "
+        "VALUES('%s', '%s');",
+        mac_address, ip_address);
+    res = mysql_perform_query(conn, query);
+    /* clean up the database result set */
+    mysql_free_result(res);
+    return 0;
+}
+
+
 /**
  * Called by libevent when there is data to read.
  * from the client
@@ -150,14 +219,15 @@ read_from_client(struct bufferevent *bev, void *arg)
         if (n <= 0)
             break;
     }
-    printf("[*] Successfully received Local MAC Address"
-        ": %02x:%02x:%02x:%02x:%02x:%02x\n",
+    sprintf(mac_address, "%02x:%02x:%02x:%02x:%02x:%02x",
         (unsigned char) data[0],
         (unsigned char) data[1],
         (unsigned char) data[2],
         (unsigned char) data[3],
         (unsigned char) data[4],
         (unsigned char) data[5]);
+    if(!store_log_to_db())
+        printf("[+] Log saved in database\n");
 }
 
 
@@ -207,8 +277,9 @@ void tcp_acceptor(int fd, short ev, void *arg) {
 
     bufferevent_enable(client->buf_ev, EV_READ);
 
-    printf("Accepted connection from %s\n", 
-        inet_ntoa(client_addr.sin_addr));
+    /*printf("Accepted connection from %s\n", 
+        inet_ntoa(client_addr.sin_addr));*/
+    sprintf(ip_address, "%s", inet_ntoa(client_addr.sin_addr));
 }
 
 
@@ -264,12 +335,18 @@ void *run_tcp_listener(void * param) {
 
 
 int main(int argc, char *argv[]) {
+    if (mysql_connection_init())
+        die("[*] Error in connection establishment");
+
     pthread_t udp_thread, tcp_thread;
     pthread_create(&udp_thread, NULL, run_upd_broadcast_server, NULL);
     pthread_create(&tcp_thread, NULL, run_tcp_listener, NULL);
 
     pthread_join(udp_thread, NULL);
     pthread_join(tcp_thread, NULL);
+
+    /* clean up the database link */
+    mysql_close(conn);
 
     return 0;
 }
