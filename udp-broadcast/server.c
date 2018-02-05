@@ -27,6 +27,8 @@
 #include <mysql/mysql.h>
 #include <time.h>
 
+#include "utils.h"
+
 
 #define BUFLEN           512
 #define BROADCAST_PORT   7447
@@ -227,6 +229,10 @@ read_from_client(struct bufferevent *bev, void *arg)
         (unsigned char) data[3],
         (unsigned char) data[4],
         (unsigned char) data[5]);
+
+    if (!(validate_mac_address((char *) &mac_address) == REGEX_MATCH_SUCCESS))
+        printf("Mac Address by user is not valid %s\n", mac_address);
+
     if(!store_log_to_db())
         printf("[+] Log saved in database\n");
 }
