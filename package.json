@@ -4,6 +4,7 @@
   "description": "Absence Verification and Detection Helping Instrument.",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +20,11 @@
   "dependencies": {
     "botbuilder": "^3.14.0",
     "dotenv-extended": "^2.0.1",
-    "restify": "^6.3.4"
+    "mysql2": "^1.5.2",
+    "restify": "^6.3.4",
+    "sequelize": "^4.32.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.12"
   }
 }
