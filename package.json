@@ -1,0 +1,24 @@
+{
+  "name": "avadhi-bot",
+  "version": "1.0.0",
+  "description": "Absence Verification and Detection Helping Instrument.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ydlamba/A.V.A.D.H.I.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ydlamba/A.V.A.D.H.I/issues"
+  },
+  "homepage": "https://github.com/ydlamba/A.V.A.D.H.I#readme",
+  "dependencies": {
+    "botbuilder": "^3.14.0",
+    "dotenv-extended": "^2.0.1",
+    "restify": "^6.3.4"
+  }
+}
