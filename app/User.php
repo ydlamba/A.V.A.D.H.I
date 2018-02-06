@@ -46,6 +46,7 @@ class User extends Authenticatable
     {
         $log = Log::where('mac_address',$this['mac_address'])->orderBy('timestamp','desc')->first();
         $current = Carbon::now('Asia/Kolkata');
-        return $current->diffForHumans(Carbon::parse($log['timestamp']));   
+        $time = Carbon::parse($log['timestamp']);
+        return $time->diffForHumans($current);   
     }
 }

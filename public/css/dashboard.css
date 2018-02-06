@@ -6,21 +6,19 @@
 	overflow-x: hidden;
 }
 
-@media screen and (max-width: 1499px) {
+html {
+	font-size: 8.22px;
+}
+
+@media only screen and (min-width: 768px) {
 	html {
-		font-size: 15px;
+		font-size: 0.95vw;
 	}
 }
 
-@media screen and (min-width: 1500px) and (max-width: : 1920px) {
+@media only screen and (min-width: 1500px) {
 	html {
-		font-size: 0.90px;
-	}
-}
-
-@media screen and (min-width: 1921px) {
-	html {
-		font-size: 22px;
+		font-size: 14.06px;
 	}
 }
 
@@ -221,4 +219,34 @@ main {
 
 .mac-submit {
 	margin-top: 1.5rem;
+}
+
+/****** BAR CHARTS ******/
+
+
+.user-content {
+	height: 75vh;	
+}
+
+.chart-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+	flex-direction: column;
+}
+
+.chart-container {
+	position: relative;
+	height:68%;
+	width:60%;
+}
+
+.chart-text {
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 1.8rem;
+	font-weight: 250;
+	color: hsl(192,13%,16%);
+	margin-top: 3rem;
 }

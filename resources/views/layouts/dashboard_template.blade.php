@@ -11,6 +11,7 @@
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
 	<title>Login</title>
 </head>
 <body>
@@ -29,7 +30,7 @@
 						MAIN 
 					</li>
 					<li class="nav-item"> 
-						<a href="#" class="nav-link">
+						<a href="/dashboard" class="nav-link">
 							<i class="fa fa-user-circle-o" aria-hidden="true"></i>
 							<div> Overview </div>
 						</a>	
@@ -52,7 +53,7 @@
 						</a>
 					</li>
 					<li class="nav-item"> 
-						<a href="#" class="nav-link">
+						<a href="/dashboard/bar" class="nav-link">
 							<i class="fa fa-bar-chart-o" aria-hidden="true"></i>
 							<div> Bar Graph </div>
 						</a>	

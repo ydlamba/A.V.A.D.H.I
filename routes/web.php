@@ -22,4 +22,5 @@ Route::get('/logout', 'DashboardController@logout');
 Route::post('/register', 'LoginRegisterController@register');
 Route::get('/dashboard', 'DashboardController@index');
 Route::post('/user/mac', 'UserController@registerMAC');
+Route::get('/dashboard/bar', 'UserController@barGraph');
 Route::get('/user','UserController@index');

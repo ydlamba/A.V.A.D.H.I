@@ -17,7 +17,7 @@ class UserController extends Controller
 	function index()
 	{
 		$user = Auth::user();
-		dd($user->lastSeen());
+		dd($this->image());
 	}
 
     function registerMAC(Request $request)
@@ -39,12 +39,27 @@ class UserController extends Controller
 		}	
     	$user->mac_address = $data['mac_address'];
     	$file = Input::file('image');
+    	$user->profile_pic = $file->getClientOriginalName();
 		$file->move(public_path().'/uploads', $file->getClientOriginalName());
     	$user->save();
 
     	return view('dashboard', ['user'=> $user, 'error' => '', 'message'=>'Successful']);
     }
 
-    
+   	function barGraph()
+   	{
+   		return view('dashboard_bar', ['message' => '', 'error' => '']);
+   	} 
+
+   	function image(Request $request)
+   	{
+   		$data = $request->all();
+   		$email = $data['email'];
+
+   		$user = User::where('email',$email)->first();
+
+   		return $user->profile_pic;
+
+   	}
 
 }
