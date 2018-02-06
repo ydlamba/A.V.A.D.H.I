@@ -1,6 +1,6 @@
 'use strict';
-const builder = require('botbuilder');
-const models = require('./models/');
+const builder = require('botbuilder');;
+const commands = require('./commands')
 
 const connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
@@ -8,28 +8,37 @@ const connector = new builder.ChatConnector({
 });
 
 const bot = module.exports = new builder.UniversalBot(connector, function (session) {
-  var reply = new builder.Message()
-      .address(session.message.address);
-
-  var text = session.message.text.toLocaleLowerCase();
-
-  console.log('[' + session.message.address.conversation.id + '] Message received: ' + text);
+  var reply = '';
+  var message = session.message;
+  var conversationId = message.address.conversation.id;
+  var text = message.text.toLocaleLowerCase();
+  var response = [];
+  console.log('[' + conversationId + '] Message received: ' + text);
 
   switch (text) {
       case 'bot stats':
-          reply.text('Here are the stats.')
+          reply = 'Here are the stats:';
+          session.send(reply);
           break;
 
-      case 'bot show online':
-          reply.text('Online Users are:')
+      case 'bot online':
+          commands.botOnline().then(function (data) {
+            if (data) { 
+              data.forEach(function (user) {
+                response.push(user.dataValues.name + '\n')
+              });
+            } else {
+              console.log('Error Occured.')
+            }
+            reply = response.join('\r\n');
+            session.send('ONLINE USERS: <br>' + reply);
+          });
           break;
 
       default:
-          reply.text('Please! I am still learning.');
+          reply = 'Please! I am still learning.';
           break;
   }
-
-  session.send(reply);
 
 });
 
