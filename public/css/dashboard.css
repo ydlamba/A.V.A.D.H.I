@@ -1,0 +1,192 @@
+/**************** Global Styles************/
+
+* {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+}
+
+@media screen and (max-width: 1499px) {
+	html {
+		font-size: 15px;
+	}
+}
+
+@media screen and (min-width: 1500px) and (max-width: : 1920px) {
+	html {
+		font-size: 0.90px;
+	}
+}
+
+@media screen and (min-width: 1921px) {
+	html {
+		font-size: 22px;
+	}
+}
+
+/**********HEADER************/
+
+.page-head { 
+	padding: 0.7rem;
+	width: 100%;
+	background-color: hsl(193,14%,12%);
+	color: hsl(0,0%,100%);
+	position:fixed;
+	z-index: 5;
+}
+
+.website-name {
+	float:left;
+	height: 2.4rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/*font-family: 'Roboto', sans-serif;*/
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.website-name h3 {
+	flex: 1 0 0;
+	font-weight: 400;
+	letter-spacing: 0.05rem;
+}
+
+.right-nav {
+	float: right;
+	display: flex;
+	flex-direction: row-reverse;
+	margin-right: 3rem;	
+	align-items: center;
+}
+
+.profile-pic{
+	height: 2.4rem;
+	width: auto;
+	border-radius: 50%;
+	margin-left: 2rem;
+}
+
+form.search-bar {
+	display: inline;
+	flex: 2 0 0;
+}
+
+form.search-bar input {
+	height: 2.4em;
+	width: 13rem;
+	border-radius: 25px;
+	outline: 0;
+	border: 0;
+	background-image: url('images/search.png');
+	background-repeat: no-repeat;
+	background-position: 11.5rem 0.3rem;
+	background-size: 1.5rem 1.5rem;
+	padding:0 0.5rem;	
+}
+
+/***********LEFT NAV***************/
+
+main {
+	width: 100%;
+	display: flex;
+}
+
+.left-nav {
+	font-weight: 300;
+	flex: 1 0 0;
+	background-color: hsl(192,13%,16%);
+	color: white;
+	font-family: 'Ubuntu', sans-serif;
+	display: flex;
+	flex-flow: column;
+	position: fixed;
+	height: 100%;
+	padding-top: 5rem;
+	width: 19rem;
+}
+
+.main-nav ,.filter-nav {
+	font-size: 0.9rem;
+}
+
+.nav-head {
+	margin-top: 1rem;
+	font-weight: 900;
+	padding: 0.5rem 3.5rem;
+	font-size: 0.65rem;
+	color: hsl(190,8%,31%);
+}
+
+.nav-link {
+	transition: 0.2s ease;
+	padding: 0.5rem 2.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: hsl(190,8%,50%);
+	text-decoration: none;
+}
+
+.nav-link i{
+	flex: 1 0 0;
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+.nav-link div{ 
+	text-align: left;
+	flex: 3 0 0;
+	text-decoration: none;
+}
+
+.nav-link:hover, .nav-link:active{ 
+	color:white; 
+}
+
+/**********USER SPACE*************/
+
+.user-space {
+	flex: 4 0 0;
+	padding: 1rem 2rem;
+	position: absolute;
+	top: 5rem;
+	left: 19rem;
+	width: 75vw;
+}
+
+.user-space-head {
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 2rem;
+	font-weight: 250;
+	color: hsl(192,13%,16%);
+	border-bottom: 0.1px solid hsl(190,8%,80%);
+	padding-bottom: 0.3rem;
+}
+
+/**********CHARTS************/
+
+/*.graph-data {
+	display:flex;
+	flex-flow: column;
+	height: 90%;
+}
+
+.line-graph {
+	flex: 1.2 0 0;
+	position: relative;
+	padding: 2rem;
+}
+
+.pie-chart {
+	position: relative;
+	flex: 1.2 0 0;
+	display: flex;
+	flex-flow: row;
+	padding: 2rem;
+}
+
+.pie-chart div{
+	position: relative;
+	flex: 1 0 0;
+}
+*/

@@ -92,6 +92,12 @@
 			toastr.success(message);
 		</script>
 	@endif
+	@if ($login_error)
+		<script type="text/javascript">
+			var message = "{{ $login_error }}"
+			toastr.error(message);
+		</script>
+	@endif
 
 	</body>
 </html>

@@ -6,12 +6,13 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class LoginRegisterController extends Controller
 {
 	function index()
 	{
-		return view('loginregister',['message'=>'']);
+		return view('loginregister',['message'=>'','login_error'=>'']);
 	}
 
 	function login(Request $request)
@@ -26,6 +27,17 @@ class LoginRegisterController extends Controller
 			return redirect('/welcome')->withErrors($validator);
 		}
 
+		$user = User::where('username',$data['username'])->first();
+		if($user !== null)
+		{
+			if(Hash::check($data['password'], $user->password))
+				{
+					Auth::login($user,true);
+					return redirect('/dashboard');
+				}
+		}
+
+		return view('loginregister',['login_error'=>'Incorrect Username or Password', 'message' => '']);
 
 	}
 
@@ -54,6 +66,6 @@ class LoginRegisterController extends Controller
 
 		$new_user->save();
 		$message = "Successfully Registered, proceed to login.";
-		return view('loginregister',['message'=>$message]);
+		return view('loginregister',['message'=>$message, 'login_error'=>'']);
 	}
 }
