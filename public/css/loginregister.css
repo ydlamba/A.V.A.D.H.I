@@ -1,0 +1,233 @@
+/********* Global Styles ************/
+
+* {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+}
+
+@media screen and (max-width: 1499px) {
+	html {
+		font-size: 15px;
+	}
+}
+
+@media screen and (min-width: 1500px) and (max-width: 1920px) {
+	html {
+		font-size: 0.90vw;
+	}
+}
+
+@media screen and (min-width: 1921px) {
+	html {
+		font-size: 22px;
+	}
+}
+
+/*********** Heading **************/
+
+.main {
+	min-height: 100vh;
+	width: 100vw;
+}
+
+  .background-image {
+  	position: fixed;
+  	height: 100vh;
+  	width: 100vw;
+  	background: linear-gradient(rgba(35, 139, 176, 0.9),
+  		                        rgba(117, 122, 203, 0.99)),
+  		                        url("img.jpg");
+  }
+
+  .main-section {
+  	position: relative;
+  }
+
+    .page-head {
+    	height: 12rem;
+    	width: 100%;
+    	display: flex;
+    	align-items: center;
+    	justify-content: center;
+    	color: #ffffff;
+    	flex-direction: column;
+    	padding: 1.5rem 0;
+    }
+
+      .website-name {
+      	font-family: 'Roboto', sans-serif;
+      	font-weight: 300;
+      	font-size: 3.2rem;
+      	padding-bottom: 1rem;
+      	color: #eeeeee;
+      }
+
+        .first-half {
+        	font-weight: 500;
+        	color: #ffffff;
+        }
+
+          .first-letter {
+          	font-weight: 600;
+          }
+
+      .description {
+      	font-family: 'Roboto', sans-serif;
+      	font-size: 1.2rem;
+      	font-weight: 300;
+      	color: #dddddd;
+      	letter-spacing: 0.05rem;
+      }
+
+/********* FORMS *********/
+
+.form-container {
+	color: white;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 0 8rem;
+	flex-wrap: wrap;
+	margin-bottom: 2rem;
+}
+  
+  .vertical-rule {
+  	width: 1px;
+  	background: #eeeeee;
+  	height: 20rem;
+  	flex: 0 0 1px;
+  }
+
+  @media screen and (max-width: 1110px) {
+    .vertical-rule {
+      display: none;
+    }
+  }
+
+  .login-form {
+  	background: transparent;
+  	width: 29rem;
+  }
+
+    .logins {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+    }
+
+    .logins h4 {
+      font-size: 1.5rem;
+      color: #dddddd;
+      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+    }
+
+      .login-options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 1.5rem;
+      }
+
+      .login-options button {
+        font-size: 1.2rem;
+        padding: 0.75rem 1.2rem;
+        background: rgb(72,92,138);
+        color: #dddddd;
+        border: 0.05rem solid #dddddd;
+        border-radius: 0.2rem;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .login-options i {
+        padding-right: 0.7rem;
+      }
+      
+  .register-form {
+  	background: transparent;
+  	width: 29rem;
+  }
+
+    .form-head {
+    	height: 5rem;
+    	background: rgba(67, 86, 129, 0.8);
+    	padding: 3rem 2rem;
+    	border-radius: 5px 5px 0px 0px;
+    	display: flex;
+    	justify-content: space-between;
+    }
+
+      .form-details {
+      	display: flex;
+      	flex-direction: column;
+      }
+
+    .form-body {
+    	background: rgba(73,95,141, 0.75);
+    	border-radius: 0 0 5px 5px;
+    }
+
+/********** Form heading ***********/
+
+.head-icon {
+	color: rgb(121, 138, 166);
+	font-size: 2.8rem;
+	float: right;
+}
+
+.form-heading {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 2rem;
+	padding-bottom: 0.9rem;
+	color: #eeeeee;
+}
+
+.form-description {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 1.1rem;
+	color: #dddddd;
+}
+
+/******* Form Input Styling *******/
+
+.form-body form {
+	padding: 3rem;
+}
+
+  form input {
+  	width: 100%;
+  	border-style: none;
+  	padding: 0.6rem 0 0.6rem 1rem;
+  	margin: 0.6rem 0.3rem;
+  	box-sizing: border-box;
+  	font-size: 1.1rem;
+  	border-radius: 0.25rem;
+  	background: #eeeeee;
+  	font-weight: 300;
+  	color: #444444;
+  }
+
+    form input::placeholder {
+    	font-family: 'Roboto', sans-serif;
+    	font-weight: 300;
+    	font-size: 1rem;
+    }
+
+    input:focus {
+    	outline: none;
+    }
+
+    form input[type="submit"] {
+    	margin-top: 1.2rem;
+    	background: rgb(25, 185, 231);
+    	padding: 0.9rem;
+    	color: #eeeeee;
+    	font-size: 1.3rem;
+    	cursor: pointer;
+    }

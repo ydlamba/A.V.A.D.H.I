@@ -1,6 +1,6 @@
 # A.V.A.D.H.I
 
-Absence Verification and Detection Helping Instrument.
+Absence Verification and Detection Helping Instrument. FTW
 
 [WIP]
 
