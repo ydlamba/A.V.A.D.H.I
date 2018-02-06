@@ -23,6 +23,20 @@
 		  </div> 
 		  <button type="submit" class="mui-btn mac-submit mui-btn--raised">Submit</button>
 		</form>
+	@else
+		<div> 
+			Username: {{ $user->name }}
+		</div>
+		<div>
+			MAC: {{ $user->mac_address }}
+		</div>	
+		<div>
+			@if ($user->isOnline())
+				Status: Online
+			@else
+				Last Seen: {{$user->lastSeen()}}
+			@endif
+		</div>
 
 	@endif
 

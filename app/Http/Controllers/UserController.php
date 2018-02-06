@@ -6,10 +6,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Validator;
 use App\User;
+use App\Log;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+
+	function index()
+	{
+		$user = Auth::user();
+		dd($user->lastSeen());
+	}
+
     function registerMAC(Request $request)
     {
     	$user = Auth::user();
@@ -34,4 +44,7 @@ class UserController extends Controller
 
     	return view('dashboard', ['user'=> $user, 'error' => '', 'message'=>'Successful']);
     }
+
+    
+
 }
