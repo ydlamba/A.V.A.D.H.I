@@ -21,3 +21,4 @@ Route::post('/login', 'LoginRegisterController@login');
 Route::get('/logout', 'DashboardController@logout');
 Route::post('/register', 'LoginRegisterController@register');
 Route::get('/dashboard', 'DashboardController@index');
+Route::post('/user/mac', 'UserController@registerMAC');

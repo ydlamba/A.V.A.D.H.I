@@ -37,7 +37,6 @@
 
 .website-name {
 	float:left;
-	height: 2.4rem;
 	display: flex;
 	align-items: center;
 	padding-left: 3rem;
@@ -45,6 +44,7 @@
 	/*font-family: 'Roboto', sans-serif;*/
 	font-family: 'Ubuntu', sans-serif;
 	letter-spacing: 0.2rem;
+	/*overflow:hidden;*/
 }
 
 .website-name h3 {
@@ -142,6 +142,7 @@ main {
 }
 
 .nav-link:hover, .nav-link:active{ 
+	text-decoration: none;
 	color:white; 
 }
 
@@ -201,4 +202,23 @@ main {
 
 .website-name h3{
 	letter-spacing: 0.2rem;
+	margin: 0;
+	margin-top: 2px;
+}
+
+.user-content {
+	margin-top: 1.5rem;
+}
+
+
+.mac-form {
+	margin-top: 1rem;
+}
+
+.mac-form input:focus {
+	color: #1A2123;
+}
+
+.mac-submit {
+	margin-top: 1.5rem;
 }

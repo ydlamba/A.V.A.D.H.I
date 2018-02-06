@@ -14,7 +14,7 @@ class DashboardController extends Controller
 			return view('loginregister', ['message'=>'', 'login_error'=> 'Login First -_-']);
 
 
-		return view('dashboard',['user' => $user]);
+		return view('dashboard',['user' => $user, 'error'=>'', 'message' => '']);
 	}
 
 	function logout()
