@@ -1,0 +1,8 @@
+node_modules
+storage
+public/uploads/*
+storage/*.key
+vendor
+npm-debug.log
+yarn-error.log
+.env
