@@ -1,0 +1,20 @@
+{
+  "name": "presence-desktop",
+  "version": "1.0.0",
+  "description": "Desktop application for presence",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.7.5",
+    "electron-pug": "^1.5.1",
+    "webcamjs": "^1.0.24"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "^1.4.13"
+  }
+}
