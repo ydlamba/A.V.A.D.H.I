@@ -1,0 +1,36 @@
+html
+  head
+    title= title
+    link(href='https://cdn.muicss.com/mui-0.9.36/css/mui.min.css' rel='stylesheet' type='text/css')
+    script(src='https://cdn.muicss.com/mui-0.9.36/js/mui.min.js')
+    link(href='./css/main.css' rel='stylesheet' type='text/css')
+  body
+    div(class='app-login-container align-center flex-column')
+      div(id='user-image-modal' class='align-center flex-column')
+        div(id="webcam-capture-modal")
+        div(class='align-center padding--normal image-button-container')
+            button(class='mui-btn mui-btn--danger mui-btn--large' id='capture-button') CAPTURE
+            button(class='mui-btn mui-btn--accent mui-btn--large' id='image-upload-button') Image Login
+      div(class='form-header mui--divider-bottom')
+        div(class='mui--text-dark-secondary app-name-heading align-center padding--low') A.V.A.D.H.I
+        div(class='mui--text-dark-hint mui--text-headline align-center text-align-center') Absence Verification and Detection Helping Instrument
+      div(class='form-container flex')
+        form(class='mui-form text-form-container' id='login-form' method='post')
+          div(class='mui-textfield mui-textfield--float-label')
+            input(type='email')
+            label E-mail
+          div(class='mui-textfield mui-textfield--float-label')
+            input(type='password')
+            label Password
+          div(class='align-center padding--normal')
+            button(class='mui-btn mui-btn--primary mui-btn--large mui-btn--raised' id='login-button') Log-In
+        div(class='align-center padding--normal')
+          button(class='mui-btn mui-btn--large mui-btn--accent mui-btn--fab form-or-button') OR
+        div(class='mui--text-dark mui--text-headline align-center flex-column text-form-container')
+          span Login with Image
+          div(class='login-image-container align-center cursor' id='image-login')
+            img(class='login-image' src='./img/login-default.jpg')
+
+
+  script(src='./js/app.js')
+  
