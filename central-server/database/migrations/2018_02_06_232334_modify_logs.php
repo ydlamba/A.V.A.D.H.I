@@ -13,7 +13,7 @@ class ModifyLogs extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('logs', function (Blueprint $table) {
             $table->renameColumn('last_active','timestamp');
         });
     }
@@ -25,7 +25,7 @@ class ModifyLogs extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('logs', function (Blueprint $table) {
             $table->renameColumn('timestamp','last_active');
         });
     }
