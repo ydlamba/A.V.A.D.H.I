@@ -46,10 +46,10 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
     case 'bot stats':
       commands.botStats()
         .then(function (json) {
-          json = JSON.parse(json)
+          json = JSON.parse(json);
           Object.keys(json).forEach(function(k){
             if (json[k].username !== 'Not Registered') {
-              response.push(json[k].username + ' - ' +json[k].minutes + ' minutes\n');
+              response.push(json[k].name + ' - ' +json[k].minutes + ' minutes\n');
             }
           });
           reply = response.join('\r\n');
@@ -61,11 +61,11 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
       break;
 
     case 'bot online':
-      commands.botStats()
+      commands.botOnline()
         .then(function (json) {
-          json = JSON.parse(json)
+          json = JSON.parse(json);
           Object.keys(json).forEach(function(k){
-
+            response.push(json[k].name + '\n');
           });
           reply = response.join('\r\n');
           session.send('ONLINE USERS: <br>' + reply);
@@ -74,6 +74,18 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
             throw err;
         });
       break;
+
+    case (text.match(/bot score/) || {}).input:
+      commands.botScore(text.split(' ')[2])
+        .then(function (data) {
+          reply = data[2] + ' minutes';
+          session.send(reply);
+        })
+        .catch(function (err) {
+            throw err;
+        });
+      break;
+
 
     default:
       reply = 'Try something else!';
@@ -84,7 +96,7 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
 
 /* Bot Event */
 bot.on('conversationUpdate', function (activity) {
-    var instructions = 'Welcome to ApnaSaathi (the presence bot).';
+    var instructions = 'Welcome! I am your Saathi (the presence bot).';
     // when user joins conversation, send instructions
     if (activity.membersAdded) {
       activity.membersAdded.forEach(function (identity) {
