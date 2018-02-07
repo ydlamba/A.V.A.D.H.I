@@ -3,7 +3,8 @@ html
     title= title
     link(href='https://cdn.muicss.com/mui-0.9.36/css/mui.min.css' rel='stylesheet' type='text/css')
     script(src='https://cdn.muicss.com/mui-0.9.36/js/mui.min.js')
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css' rel='stylesheet' type='text/css')
     link(href='./css/main.css' rel='stylesheet' type='text/css')
   body
     div(class='app-login-container align-center flex-column')
@@ -21,10 +22,10 @@ html
       div(class='form-container flex')
         form(class='mui-form text-form-container' id='login-form' method='post')
           div(class='mui-textfield mui-textfield--float-label')
-            input(type='email')
+            input(type='email' id='user-email')
             label E-mail
           div(class='mui-textfield mui-textfield--float-label')
-            input(type='password')
+            input(type='password' id='user-password')
             label Password
           div(class='align-center padding--normal')
             button(class='mui-btn mui-btn--primary mui-btn--large mui-btn--raised' id='login-button') Log-In
@@ -35,6 +36,6 @@ html
           div(class='login-image-container align-center cursor' id='image-login')
             img(class='login-image' src='./img/login-default.jpg')
 
-
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js')
   script(src='./js/app.js')
   

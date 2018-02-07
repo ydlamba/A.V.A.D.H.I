@@ -12,6 +12,7 @@
   "dependencies": {
     "electron": "^1.7.5",
     "electron-pug": "^1.5.1",
+    "toastr": "^2.1.4",
     "webcamjs": "^1.0.24"
   },
   "devDependencies": {
