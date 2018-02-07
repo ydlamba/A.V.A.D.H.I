@@ -1,5 +1,4 @@
 node_modules
-storage
 public/uploads/*
 storage/*.key
 vendor
