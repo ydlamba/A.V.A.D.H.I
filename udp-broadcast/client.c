@@ -26,6 +26,7 @@
 #define PORT         7447
 
 unsigned char mac_address[6] = {0};
+char IP_ADDR[50];
 
 void die(char *s) {
     perror(s);
@@ -35,6 +36,12 @@ void die(char *s) {
 int display_error(char *s) {
     perror(s);
     return 1;
+}
+
+int isValidIpAddress(char *ipAddress) {
+    struct sockaddr_in sa;
+    int result = inet_pton(AF_INET, ipAddress, &(sa.sin_addr));
+    return result;
 }
 
 char *get_client_mac_address() {
@@ -95,7 +102,7 @@ int send_mac_address_to_server(char *mac_address) {
     memset((char *) &sock_addr, 0, sizeof(sock_addr));
     sock_addr.sin_family = AF_INET;
     sock_addr.sin_port = htons(SERVER_PORT);
-    sock_addr.sin_addr.s_addr = inet_addr(SERVER_ADDR);
+    sock_addr.sin_addr.s_addr = inet_addr(IP_ADDR);
 
     if (connect(sock_desc, (struct sockaddr*) &sock_addr, sock_size) == -1)
         return display_error("TCP socket bind failed");
@@ -111,8 +118,19 @@ int send_mac_address_to_server(char *mac_address) {
         return display_error("[-] Could not send mac_address to server");
 }
 
-int main() {
-    
+int main(int argc, char *argv[]) {
+    if (argc != 2 && !isValidIpAddress(SERVER_ADDR)) {
+        printf("[-] You need to provide an IP address to continue ... \n\n");
+        exit(1);
+    }
+    if (argc == 2) {
+        if (!isValidIpAddress(argv[1])) {
+            printf("[-] Not a valid  IP address");
+            exit(1);
+        }
+        strcpy(IP_ADDR, argv[1]);
+    }
+
     char *mac_address = get_client_mac_address();
 
     struct sockaddr_in sock_addr;
