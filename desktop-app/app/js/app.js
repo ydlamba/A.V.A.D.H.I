@@ -81,6 +81,8 @@ const logIn = function() {
       protocol: 'file:',
       slashes: true
     }));
+  window.localStorage.setItem('email', userEmailAddress);
+  window.localStorage.setItem('last-login', new Date());
 }
 
 const getLocalImageId = function(blob=null) {
@@ -125,6 +127,26 @@ const getImageIdFromUrl = function(imageUrl) {
   });
 }
 
+const verifyImageIds = function(imageVerificationParams) {
+  $.ajax({
+    url: verificationUrl,
+    beforeSend: function(xhrObj){
+      xhrObj.setRequestHeader("Content-Type","application/json");
+      xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",CONFIG.apiKey);
+    },
+    type: "POST",
+    data: JSON.stringify(imageVerificationParams),
+    processData: false
+  })
+  .done(function(data) {
+    if (data.isIdentical)
+      logIn();
+  })
+  .fail(function() {
+      alert("error");
+  });
+}
+
 const startImageVerification = function() {
 /*  getImageIdFromUrl("https://cyrex.southeastasia.cloudapp.azure.com/uploads/fristonio.jpg");*/
   let capturedImageFaceId = getLocalImageId();
@@ -149,7 +171,7 @@ const startImageVerification = function() {
         console.log("I have all the data now", data);
         getImageIdFromUrl(CONFIG.serverRoot + "uploads/" + JSON.parse(data).image)
           .then(data => {
-            console.log("Third request data", data)
+            console.log("SERVER image data detect", data)
             secondImageId = data[0].faceId;
             let imageVerificationParams = {
               faceId1: firstImageId,
@@ -158,23 +180,7 @@ const startImageVerification = function() {
             console.log(imageVerificationParams)
             let verificationUrl = CONFIG.apiEndpoint + "verify";
             if (firstImageId && secondImageId) {
-              $.ajax({
-                url: verificationUrl,
-                beforeSend: function(xhrObj){
-                  xhrObj.setRequestHeader("Content-Type","application/json");
-                  xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key",CONFIG.apiKey);
-                },
-                type: "POST",
-                data: JSON.stringify(imageVerificationParams),
-                processData: false
-              })
-              .done(function(data) {
-                if (data.isIdentical)
-                  logIn();
-              })
-              .fail(function() {
-                  alert("error");
-              });
+              verifyImageIds(imageVerificationParams);
             }
           })
           .catch(err => {
@@ -222,7 +228,7 @@ let snapImage = function() {
 document
   .querySelector("#login-button")
   .onclick = function() {
-    console.log("INside quere")
+    console.log("Logging user in with email and password")
     logIn();
   }
 
