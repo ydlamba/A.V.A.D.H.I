@@ -5,7 +5,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<title>Login</title>
-		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 	  	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
 	  	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 	</head>
