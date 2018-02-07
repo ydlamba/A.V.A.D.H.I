@@ -3,17 +3,19 @@ html
     title= title
     link(href='https://cdn.muicss.com/mui-0.9.36/css/mui.min.css' rel='stylesheet' type='text/css')
     script(src='https://cdn.muicss.com/mui-0.9.36/js/mui.min.js')
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css' rel='stylesheet' type='text/css')
     link(href='./css/main.css' rel='stylesheet' type='text/css')
   body
+    button(class='mui-btn mui-btn--raised mui-btn--large logout-button') Log Out
     div(class='padding--normal vertical-align-center flex-column')
       div(class='form-header mui--divider-bottom')
         div(class='mui--text-dark-secondary app-name-heading align-center padding--low') A.V.A.D.H.I
         div(class='mui--text-dark-hint mui--text-headline align-center text-align-center') Absence Verification and Detection Helping Instrument
 
-      div(id='webcam-capture-model')
-
       div(id='recent-image-validations')
+
+      div(id='webcam-capture-modal' class='disabled')
 
 
   script(src='./js/dashboard.js')
