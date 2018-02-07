@@ -14,4 +14,5 @@ action() {
 	dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
 }
 
+sleep 10
 action
