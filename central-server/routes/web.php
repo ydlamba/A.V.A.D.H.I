@@ -23,4 +23,6 @@ Route::post('/register', 'LoginRegisterController@register');
 Route::get('/dashboard', 'DashboardController@index');
 Route::post('/user/mac', 'UserController@registerMAC');
 Route::get('/dashboard/bar', 'UserController@barGraph');
+Route::get('/dashboard/line', 'UserController@lineGraph');
+Route::get('/dashboard/pie', 'UserController@pieGraph');
 Route::get('/user','UserController@index');

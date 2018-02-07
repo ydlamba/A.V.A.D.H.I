@@ -9,7 +9,7 @@
 
 	<div class="chart-wrapper">
 		<div class="chart-container">
-			<canvas id="bar-chart"></canvas>
+			<canvas id="line-chart"></canvas>
 		</div>
 		<div class="chart-text">
 			Time Spent In the Week: {{ $total }} Hours 
@@ -19,9 +19,9 @@
 		
 		var data = [ {{$data[6]}},{{$data[5]}},{{$data[4]}},{{$data[3]}},{{$data[2]}},{{$data[1]}},{{$data[0]}}];	
 		var date = [ "{{$date[6]}}","{{$date[5]}}","{{$date[4]}}","{{$date[3]}}","{{$date[2]}}","{{$date[1]}}","{{$date[0]}}"];
-		var ctx = document.getElementById("bar-chart");
+		var ctx = document.getElementById("line-chart");
 		var myChart = new Chart(ctx, {
-						    type: 'bar',
+						    type: 'line',
 						    data: {
 						        labels: date,
 						        datasets: [{
@@ -47,17 +47,19 @@
 						        }]
 						    },
 						    options: {
-						        scales: {
-						            yAxes: [{
-						                ticks: {
-						                    beginAtZero:true
-						                },
-						                scaleLabel: {
-						                	display: true,
-						                	labelString: 'Hours'
-						                }
-						            }]
-						        }
+						    	responsive:true,
+				                scales: {
+				                	ticks: {
+				                		beginAtZero: true
+				                	},
+				                    yAxes: [{
+				                        display: true,
+				                        scaleLabel: {
+				                            display: true,
+				                            labelString: 'Hours'
+				                        }
+				                    }]
+				                }
 						    }
 						});
 

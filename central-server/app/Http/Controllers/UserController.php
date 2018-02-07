@@ -58,6 +58,31 @@ class UserController extends Controller
    		return view('dashboard_bar', ['total' => $total, 'data' => $data, 'date' => $date, 'message' => '', 'error' => '']);
    	} 
 
+    function lineGraph()
+    {
+      $user = Auth::user();
+      $data = $user->hoursActiveInAWeek(Carbon::today());
+      $date = $user->daysOfAWeek();
+
+      $total = 0;
+      foreach( $data as $time){
+        $total += $time;
+      }
+      return view('dashboard_line', ['total' => $total, 'data' => $data, 'date' => $date, 'message' => '', 'error' => '']);
+    } 
+
+    function pieGraph()
+    {
+      $user = Auth::user();
+      $data = $user->hoursActiveInAWeek(Carbon::today());
+      $date = $user->daysOfAWeek();
+
+      $total = 0;
+      foreach( $data as $time){
+        $total += $time;
+      }
+      return view('dashboard_pie', ['total' => $total, 'data' => $data, 'date' => $date, 'message' => '', 'error' => '']);
+    } 
    	function image(Request $request)
    	{
    		$data = $request->all();
@@ -65,7 +90,7 @@ class UserController extends Controller
 
    		$user = User::where('email',$email)->first();
 
-   		return $user->profile_pic;
+   		return json_encode(['image' => $user->profile_pic]);
    	}
 
 }

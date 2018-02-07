@@ -59,13 +59,13 @@
 						</a>	
 					</li>
 					<li class="nav-item"> 
-						<a href="#" class="nav-link">
+						<a href="/dashboard/pie" class="nav-link">
 							<i class="fa fa-pie-chart" aria-hidden="true"></i>
 							<div> Pie Chart </div>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link">
+						<a href="/dashboard/line" class="nav-link">
 							<i class="fa fa-line-chart" aria-hidden="true"></i>
 							<div> Line Chart </div>	
 						</a>

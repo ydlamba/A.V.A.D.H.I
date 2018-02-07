@@ -250,3 +250,23 @@ main {
 	color: hsl(192,13%,16%);
 	margin-top: 3rem;
 }
+
+
+.overview-label {
+	font-family: 'Ubuntu', sans-serif;;	
+	font-size: 1.25rem;
+	font-weight: 200;
+}
+
+.overview-data {
+	font-family: 'Ubuntu', sans-serif;
+	margin-left: 2rem;
+}
+
+.overview-container {
+	padding: 0.5rem 0;
+}
+
+.overview-data--mac {
+	margin-left: 5rem;
+}
