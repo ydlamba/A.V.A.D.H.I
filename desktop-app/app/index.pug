@@ -3,10 +3,14 @@ html
     title= title
     link(href='https://cdn.muicss.com/mui-0.9.36/css/mui.min.css' rel='stylesheet' type='text/css')
     script(src='https://cdn.muicss.com/mui-0.9.36/js/mui.min.js')
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
     link(href='./css/main.css' rel='stylesheet' type='text/css')
   body
     div(class='app-login-container align-center flex-column')
       div(id='user-image-modal' class='align-center flex-column')
+        form(class="mui-textfield mui-textfield--float-label email-field padding--low")
+          input(type="email" required class="email-field-input")
+          label(class="email-field") Required Email Address
         div(id="webcam-capture-modal")
         div(class='align-center padding--normal image-button-container')
             button(class='mui-btn mui-btn--danger mui-btn--large' id='capture-button') CAPTURE

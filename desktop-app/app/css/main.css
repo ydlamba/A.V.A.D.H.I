@@ -55,15 +55,15 @@
     height: 100vh;
     width: 100vw;
     top: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.8);
     display: none;
     position: fixed;
     z-index: 1000;
   }
 
     #webcam-capture-modal {
-      width: 400;
-      height: 320;
+      width: 640;
+      height: 480;
       position: relative;
       text-align: center;
       margin: 0 auto;
@@ -110,3 +110,13 @@
       width: 15rem;
       height: 15rem;
     }
+
+    .email-field {
+      width: 40rem;
+      color: #fff !important;
+    }
+
+      .email-field-input {
+        border-color: #fff !important;
+        color: #fff !important;
+      }
