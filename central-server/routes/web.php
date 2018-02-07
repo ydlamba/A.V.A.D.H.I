@@ -26,3 +26,8 @@ Route::get('/dashboard/bar', 'UserController@barGraph');
 Route::get('/dashboard/line', 'UserController@lineGraph');
 Route::get('/dashboard/pie', 'UserController@pieGraph');
 Route::get('/user','UserController@index');
+
+Route::get('/admin','UserController@adminIndex');
+Route::get('/admin/stats','UserController@adminLine');
+Route::get('/admin/sathi','UserController@sathi');
+

@@ -19,6 +19,8 @@
 		
 		var data = [ {{$data[6]}},{{$data[5]}},{{$data[4]}},{{$data[3]}},{{$data[2]}},{{$data[1]}},{{$data[0]}}];	
 		var date = [ "{{$date[6]}}","{{$date[5]}}","{{$date[4]}}","{{$date[3]}}","{{$date[2]}}","{{$date[1]}}","{{$date[0]}}"];
+		var colors = ['#FFB1C1', '#FFCF9F', '#FFCF9F', '#4BC0C0', '#9AD0F5'];
+		for($i=0; i<)
 		var ctx = document.getElementById("line-chart");
 		var myChart = new Chart(ctx, {
 						    type: 'line',

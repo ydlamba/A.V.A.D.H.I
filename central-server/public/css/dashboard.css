@@ -301,3 +301,22 @@ main {
 	padding-right: 0.5rem;
 	font-size: 2.0rem;
 }
+
+.super-table-wrapper {
+  justify-content: space-around;
+  display: flex;
+}
+
+.admin-table-head {
+  text-align: center;
+  font-size: 1.4rem;
+  font-family: 'Ubuntu', sans-serif ;
+  margin-bottom: 2rem;
+}
+
+.admin-table td, .admin-table th{
+  padding: 1rem 1.2rem !important;
+  font-family: 'Ubuntu', sans-serif;
+  text-align: center;
+
+}
