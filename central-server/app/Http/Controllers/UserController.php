@@ -16,8 +16,7 @@ class UserController extends Controller
 
 	function index()
 	{
-		$user = Auth::user();
-		dd($this->image());
+		$user = Auth::user();$user->daysOfAWeek();
 	}
 
     function registerMAC(Request $request)
@@ -48,7 +47,15 @@ class UserController extends Controller
 
    	function barGraph()
    	{
-   		return view('dashboard_bar', ['message' => '', 'error' => '']);
+      $user = Auth::user();
+      $data = $user->hoursActiveInAWeek(Carbon::today());
+      $date = $user->daysOfAWeek();
+
+      $total = 0;
+      foreach( $data as $time){
+        $total += $time;
+      }
+   		return view('dashboard_bar', ['total' => $total, 'data' => $data, 'date' => $date, 'message' => '', 'error' => '']);
    	} 
 
    	function image(Request $request)
@@ -59,7 +66,6 @@ class UserController extends Controller
    		$user = User::where('email',$email)->first();
 
    		return $user->profile_pic;
-
    	}
 
 }

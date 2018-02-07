@@ -17,7 +17,7 @@
 <body>
 	<section class="main">
 		<header class="page-head">
-			<div class="website-name"><h3><span class="first-letter">A</span>.V.A.D.H.I</h3></div>
+			<div class="website-name"><h4><span class="first-letter">A</span>.V.A.D.H.I</h4></div>
 			<div class="right-nav">
 				<img src="{{ asset('/images/profile.jpg')}}" class="profile-pic">
 				<form method="post" class="search-bar"><input type="text"></form>

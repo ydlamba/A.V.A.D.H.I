@@ -18,7 +18,7 @@ html {
 
 @media only screen and (min-width: 1500px) {
 	html {
-		font-size: 14.06px;
+		font-size: 15.06px;
 	}
 }
 
@@ -60,7 +60,7 @@ html {
 }
 
 .profile-pic{
-	height: 2.4rem;
+	height: 3.4rem;
 	width: auto;
 	border-radius: 50%;
 	margin-left: 2rem;
@@ -102,11 +102,11 @@ main {
 	position: fixed;
 	height: 100%;
 	padding-top: 5rem;
-	width: 19rem;
+	width: 20rem;
 }
 
 .main-nav ,.filter-nav {
-	font-size: 0.9rem;
+	font-size: 1.05rem;
 }
 
 .nav-head {
@@ -151,7 +151,7 @@ main {
 	padding: 1rem 2rem;
 	position: absolute;
 	top: 5rem;
-	left: 19rem;
+	left: 20rem;
 	width: 75vw;
 }
 
