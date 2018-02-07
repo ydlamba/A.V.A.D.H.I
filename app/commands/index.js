@@ -1,16 +1,11 @@
-const models = require('../models/');
+const rp = require('request-promise');
+let url = 'https://cyrex.southeastasia.cloudapp.azure.com';
 
 module.exports = {
   botOnline: function () {
-    return models.users.findAll();
+    return rp(url +  '/api/onlineusers');
   },
   botStats: function () {
-    return models.logs.findAll({
-      where: {
-        timestamp: {
-          [Op.lt]: [current]
-        }
-      }
-    });
+    return rp(url + '/api/leaderboard');
   }
 }

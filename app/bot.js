@@ -24,38 +24,55 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
       session.send(reply);
       break;
 
-    case text.match('/^bot/'):
-      reply="Are you talking about me?";
+    case (text.match(/bye/) || {}).input:
+      reply="Hasta la vista, See you later!";
       session.send(reply);
       break;
 
+    case (text.match(/time/) || {}).input:
+      let now = new Date();
+      let options = {  
+          weekday: 'long',
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+      };
+      reply = now.toLocaleString('en-us', options);
+      session.send('Today is ' + reply);
+      break;
+
     case 'bot stats':
-      commands.botStats().then(function (data) {
-        if (data) { 
-          data.forEach(function (user) {
-            var dateParts = String(user.dataValues.timestamp).match(/(\d+)-(\d+)-(\d+) (\d+):(\d+)/);
-            console.log(user.dataValues.timestamp);
+      commands.botStats()
+        .then(function (json) {
+          json = JSON.parse(json)
+          Object.keys(json).forEach(function(k){
+            if (json[k].username !== 'Not Registered') {
+              response.push(json[k].username + ' - ' +json[k].minutes + ' minutes\n');
+            }
           });
-        } else {
-          console.log('Error Occured.')
-        }
-        reply = response.join('\r\n');
-        session.send('STATS: <br>' + reply);
-      });
+          reply = response.join('\r\n');
+          session.send('STATS: <br>' + reply);
+        })
+        .catch(function (err) {
+            throw err;
+        });
       break;
 
     case 'bot online':
-      commands.botOnline().then(function (data) {
-        if (data) { 
-          data.forEach(function (user) {
-            response.push(user.dataValues.name + '\n')
+      commands.botStats()
+        .then(function (json) {
+          json = JSON.parse(json)
+          Object.keys(json).forEach(function(k){
+
           });
-        } else {
-          console.log('Error Occured.')
-        }
-        reply = response.join('\r\n');
-        session.send('ONLINE USERS: <br>' + reply);
-      });
+          reply = response.join('\r\n');
+          session.send('ONLINE USERS: <br>' + reply);
+        })
+        .catch(function (err) {
+            throw err;
+        });
       break;
 
     default:

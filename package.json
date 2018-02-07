@@ -20,9 +20,9 @@
   "dependencies": {
     "botbuilder": "^3.14.0",
     "dotenv-extended": "^2.0.1",
-    "mysql2": "^1.5.2",
-    "restify": "^6.3.4",
-    "sequelize": "^4.32.6"
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "restify": "^6.3.4"
   },
   "devDependencies": {
     "nodemon": "^1.14.12"
