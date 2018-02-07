@@ -1,5 +1,6 @@
 const WebCamera = require("webcamjs");
 const CONFIG = require("./config/config.js");
+const { spawn } = require('child_process');
 const toastr = require("toastr");
 const { remote } = require("electron");
 const path = require("path");
@@ -10,6 +11,8 @@ const lastLoggedIn = window.localStorage.getItem('lastLogin');
 console.log(userEmailAddress, lastLoggedIn);
 const MAX_RETRIES = 3;
 let loginRetries = 0;
+const inactivityCheckScript = path.join(__dirname, './../scripts/detect-inactivity.sh');
+const forceLocksScript = path.join(__dirname, './../scripts/force-lock.sh');
 
 /* GLOBAL Configurations */
 const apiRequestParams = {
@@ -26,6 +29,15 @@ WebCamera.set({
   force_flash: false,
   fps: 45
 });
+
+
+const child = spawn(inactivityCheckScript, [], {
+  detached: true,
+  stdio: 'ignore'
+});
+
+child.unref();
+
 
 $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
     // check for conditions and support for blob / arraybuffer response type
@@ -102,6 +114,15 @@ const dataURItoBlob = function(dataURI) {
 
 }
 
+const runForceLockScreen = function() {
+  const forceLockProcess = spawn(inactivityCheckScript, [], {
+    detached: true,
+    stdio: 'ignore'
+  });
+
+  forceLockProcess.unref();
+}
+
 const logOut = function(force=false) {
   if (loginRetries >= MAX_RETRIES || force) {
     console.log("USER Is loggin out ... log in again")
@@ -114,6 +135,8 @@ const logOut = function(force=false) {
         protocol: 'file:',
         slashes: true
       }));
+    if (force == false)
+      runForceLockScreen();
   }
   else {
     console.log("Running face check again");

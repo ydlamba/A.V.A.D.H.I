@@ -1,8 +1,8 @@
 const { remote } = require("electron");
 const path = require("path");
 const url = require("url");
+const { execFile } = require('child_process');
 const toastr = require("toastr");
-console.log(toastr)
 const WebCamera = require("webcamjs");
 const CONFIG = require("./config/config.js");
 
@@ -36,7 +36,15 @@ const validateEmail = function(email) {
 
 $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
     // check for conditions and support for blob / arraybuffer response type
-  if (window.FormData && ((options.dataType && (options.dataType == 'binary')) || (options.data && ((window.ArrayBuffer && options.data instanceof ArrayBuffer) || (window.Blob && options.data instanceof Blob))))) {
+  if (window.FormData &&
+      ((options.dataType &&
+        (options.dataType == 'binary')) ||
+      (options.data &&
+        ((window.ArrayBuffer && 
+          options.data instanceof ArrayBuffer) ||
+        (window.Blob && options.data instanceof Blob))
+        )
+      )) {
     return {
       // create new XMLHttpRequest
       send: function (headers, callback) {
