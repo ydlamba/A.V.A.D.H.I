@@ -1,14 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var User = sequelize.define('User', {
-    name: DataTypes.STRING,
-    createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+  var User = sequelize.define('users', {
+    name: DataTypes.STRING
+  }, {
+    timestamps: false
   });
-
-/* User.associate = function(models) {
-    models.User.hasMany(models.Task);
-  };*/
 
   return User;
 };

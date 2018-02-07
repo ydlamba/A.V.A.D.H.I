@@ -16,28 +16,52 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
   console.log('[' + conversationId + '] Message received: ' + text);
 
   switch (text) {
-      case 'bot stats':
-          reply = 'Here are the stats:';
-          session.send(reply);
-          break;
+    case 'hi':
+    case 'hello':
+    case 'hey':
+    case 'yo':
+      reply = 'Hello there! How can I help you?';
+      session.send(reply);
+      break;
 
-      case 'bot online':
-          commands.botOnline().then(function (data) {
-            if (data) { 
-              data.forEach(function (user) {
-                response.push(user.dataValues.name + '\n')
-              });
-            } else {
-              console.log('Error Occured.')
-            }
-            reply = response.join('\r\n');
-            session.send('ONLINE USERS: <br>' + reply);
+    case text.match('/^bot/'):
+      reply="Are you talking about me?";
+      session.send(reply);
+      break;
+
+    case 'bot stats':
+      commands.botStats().then(function (data) {
+        if (data) { 
+          data.forEach(function (user) {
+            var dateParts = String(user.dataValues.timestamp).match(/(\d+)-(\d+)-(\d+) (\d+):(\d+)/);
+            console.log(user.dataValues.timestamp);
           });
-          break;
+        } else {
+          console.log('Error Occured.')
+        }
+        reply = response.join('\r\n');
+        session.send('STATS: <br>' + reply);
+      });
+      break;
 
-      default:
-          reply = 'Please! I am still learning.';
-          break;
+    case 'bot online':
+      commands.botOnline().then(function (data) {
+        if (data) { 
+          data.forEach(function (user) {
+            response.push(user.dataValues.name + '\n')
+          });
+        } else {
+          console.log('Error Occured.')
+        }
+        reply = response.join('\r\n');
+        session.send('ONLINE USERS: <br>' + reply);
+      });
+      break;
+
+    default:
+      reply = 'Try something else!';
+      session.send(reply);
+      break;
   }
 
 });
