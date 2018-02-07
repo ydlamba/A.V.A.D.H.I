@@ -17,7 +17,7 @@ class UserController extends Controller
 
 	function index()
 	{
-		$this->leaderboard();
+		dd($this->allOnline());
 	}
 
 		function registerMAC(Request $request)
@@ -49,39 +49,45 @@ class UserController extends Controller
 		function barGraph()
 		{
 			$user = Auth::user();
-			$data = $user->hoursActiveInAWeek(Carbon::today());
-			$date = $user->daysOfAWeek();
 
-			$total = 0;
-			foreach( $data as $time){
-				$total += $time;
-			}
+			if($user == null)
+				abort(401,'Unautorized');
+
+			$all = json_decode($this->parseGraph($user->id));
+			$data = $all[0];
+			$date = $all[1];
+			$total = $all[2];
+
 			return view('dashboard_bar', ['total' => $total, 'data' => $data, 'date' => $date, 'message' => '', 'error' => '']);
 		} 
 
 		function lineGraph()
 		{
 			$user = Auth::user();
-			$data = $user->hoursActiveInAWeek(Carbon::today());
-			$date = $user->daysOfAWeek();
 
-			$total = 0;
-			foreach( $data as $time){
-				$total += $time;
-			}
+			if($user == null)
+				abort(401,'Unautorized');
+
+			$all = json_decode($this->parseGraph($user->id));
+			$data = $all[0];
+			$date = $all[1];
+			$total = $all[2];
+
 			return view('dashboard_line', ['total' => $total, 'data' => $data, 'date' => $date, 'message' => '', 'error' => '']);
 		} 
 
 		function pieGraph()
 		{
 			$user = Auth::user();
-			$data = $user->hoursActiveInAWeek(Carbon::today());
-			$date = $user->daysOfAWeek();
 
-			$total = 0;
-			foreach( $data as $time){
-				$total += $time;
-			}
+			if($user == null)
+				abort(401,'Unautorized');
+
+			$all = json_decode($this->parseGraph($user->id));
+			$data = $all[0];
+			$date = $all[1];
+			$total = $all[2];
+
 			return view('dashboard_pie', ['total' => $total, 'data' => $data, 'date' => $date, 'message' => '', 'error' => '']);
 		} 
 
@@ -106,22 +112,40 @@ class UserController extends Controller
                 	return $log->minutes;
 									})->reverse();	
 
-      $macs = array();
+      return json_encode($this->getUsernames($orders));
+      
+		}
+
+		function allOnline()
+		{
+			$recent = Carbon::now('Asia/Kolkata')->subMinutes(5);
+			$online = Log::where('timestamp','>', $recent)->get();
+
+			return json_encode($this->getUsernames($online));
+		}
+
+		function getUsernames($orders)
+		{
+
+			$macs = array();
 
       foreach($orders as $order)
       {
       	array_push($macs,$order->mac_address);
       }
-      
-     	$userNames = User::whereIn('mac_address',$macs)->get();
 
-     	foreach($orders as $order)
+      $userNames = User::whereIn('mac_address', $macs)->get();
+
+			foreach($orders as $order)
      	{
      		foreach($userNames as $user)
      		{
+		     	$userNames = User::whereIn('mac_address',$macs)->get();
+     			
      			if($user->mac_address == $order->mac_address)
      			{
      				$order->username = $user->username;
+     				$order->name = $user->name;
      				break;
      			}
      			else
@@ -130,6 +154,21 @@ class UserController extends Controller
      		}
      	}
 
-     	return ($orders);
+     	return ($orders);	
 		}
+
+		function parseGraph($id)
+		{
+			$user = User::where('id',$id)->first();
+			$data = $user->hoursActiveInAWeek(Carbon::today('Asia/Kolkata'));
+			$date = $user->daysOfAWeek();
+
+			$total = 0;
+			foreach( $data as $time){
+				$total += $time;
+			}
+
+			return json_encode([$data,$date,$total]);
+		}
+
 }

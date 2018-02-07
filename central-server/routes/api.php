@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('image', 'UserController@image');
 Route::post('login', 'LoginRegisterController@login_api');
 Route::get('leaderboard', 'UserController@leaderboard');
+Route::get('online', 'UserController@allOnline');
+Route::get('time/{id}', 'UserController@parseGraph');
+
