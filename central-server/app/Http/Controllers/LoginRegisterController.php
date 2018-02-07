@@ -12,6 +12,9 @@ class LoginRegisterController extends Controller
 {
 	function index()
 	{
+		$user = Auth::user();
+		if($user !==null )
+			return redirect('/dashboard');
 		return view('loginregister',['message'=>'','login_error'=>'']);
 	}
 
@@ -67,5 +70,21 @@ class LoginRegisterController extends Controller
 		$new_user->save();
 		$message = "Successfully Registered, proceed to login.";
 		return view('loginregister',['message'=>$message, 'login_error'=>'']);
+	}
+
+	function login_api(Request $request){
+		$data = $request->all();
+
+		$user = User::where('email',$data['email'])->first();
+		if($user !== null)
+		{
+			if(Hash::check($data['password'], $user->password))
+				{
+					// Auth::login();
+					return ['isValidated' => true];
+				}
+		}
+
+		return ['isValidated' => false];
 	}
 }
