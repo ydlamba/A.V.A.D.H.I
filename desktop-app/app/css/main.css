@@ -9,7 +9,18 @@
 }
 
 .disabled {
+  position: fixed !important;
+  top: 0;
   visibility: hidden;
+}
+
+.round {
+  border-radius: 3px;
+}
+
+.bold {
+  font-weight: 800;
+  font-size: 115%;
 }
 
 .flex {
@@ -40,8 +51,17 @@
   padding: 1.5rem;
 }
 
+  .padding-bottom--low {
+    padding-bottom: 3rem;
+  }
+
   .padding--normal {
     padding: 3rem;
+  }
+
+  .side-padding--low {
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
 
 .cursor {
@@ -130,4 +150,12 @@
   z-index: 20;
   top: 3rem;
   right: 3rem;
+}
+
+.user-basic-info-footer {
+  position: fixed;
+  justify-content: space-between;
+  bottom: 0;
+  height: 6rem;
+  width: 92.5%;
 }

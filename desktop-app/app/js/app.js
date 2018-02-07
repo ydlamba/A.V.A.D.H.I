@@ -270,7 +270,7 @@ let snapImage = function() {
   WebCamera.snap(function(data_uri) {
     currentCapturedImage = dataURItoBlob(data_uri);
     document.getElementById('webcam-capture-modal')
-      .innerHTML = '<img src="'+data_uri+'"/>';
+      .innerHTML = '<img src="'+data_uri+'" class="round"/>';
   });
 }
 

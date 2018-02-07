@@ -8,14 +8,21 @@ html
     link(href='./css/main.css' rel='stylesheet' type='text/css')
   body
     button(class='mui-btn mui-btn--raised mui-btn--large logout-button') Log Out
-    div(class='padding--normal vertical-align-center flex-column')
+    div(class='side-padding--normal vertical-align-center flex-column')
       div(class='form-header mui--divider-bottom')
         div(class='mui--text-dark-secondary app-name-heading align-center padding--low') A.V.A.D.H.I
         div(class='mui--text-dark-hint mui--text-headline align-center text-align-center') Absence Verification and Detection Helping Instrument
 
-      div(id='recent-image-validations')
+      div(class='align-center mui--text-title padding-bottom--low') Recent Image Validations
+      div(class='recent-image-validations')
+    div(id='webcam-capture-modal' class='disabled')
 
-      div(id='webcam-capture-modal' class='disabled')
+    div(class='user-basic-info-footer mui--divider-top vertical-align-center side-padding--low')
+      div(class='mui--text-subhead vertical-align-center') 
+          span(class='bold') Last Logged In &nbsp&nbsp
+          span(class='last-logged-in-time')
+      div(class='mui--text-subhead vertical-align-center') 
+          span(class='logged-in-user-name')
 
 
   script(src='./js/dashboard.js')

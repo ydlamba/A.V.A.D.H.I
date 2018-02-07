@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Allowed timeout in milliseconds.
-IDLE_TIME=$((10*1000))
+IDLE_TIME=$((15*60*1000))
 
 sleep_time=$IDLE_TIME
 triggered=false

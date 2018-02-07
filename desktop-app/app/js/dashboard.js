@@ -14,6 +14,8 @@ let loginRetries = 0;
 const inactivityCheckScript = path.join(__dirname, './../scripts/detect-inactivity.sh');
 const forceLocksScript = path.join(__dirname, './../scripts/force-lock.sh');
 
+const recentImageTaken = null;
+
 /* GLOBAL Configurations */
 const apiRequestParams = {
   "returnFaceId": "true",
@@ -37,6 +39,9 @@ const child = spawn(inactivityCheckScript, [], {
 });
 
 child.unref();
+
+document.querySelector(".last-logged-in-time").innerHTML = lastLoggedIn;
+document.querySelector(".logged-in-user-name").innerHTML = userEmailAddress;
 
 
 $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
@@ -279,19 +284,22 @@ const runFaceCheck = function() {
             WebCamera.reset();
             if(!data_uri) {
               toastr.warning("No image captured from webcam");
-            }
-            recentCapturedImage = dataURItoBlob(data_uri);
-            getLocalImageId(recentCapturedImage)
-              .then(data => {
-                let localImageId = data[0].faceId;
-                verifyImageIds({
-                  faceId1: localImageId,
-                  faceId2: serverImageId
+            } else {
+              document.querySelector(".recent-image-validations")
+                .innerHTML = '<img src="'+data_uri+'"/>';
+              recentCapturedImage = dataURItoBlob(data_uri);
+              getLocalImageId(recentCapturedImage)
+                .then(data => {
+                  let localImageId = data[0].faceId;
+                  verifyImageIds({
+                    faceId1: localImageId,
+                    faceId2: serverImageId
+                  })
                 })
-              })
-              .catch(err => {
-                logOut();
-              })
+                .catch(err => {
+                  logOut();
+                })
+            }
           });
         }, 5000);
       });
@@ -310,7 +318,7 @@ document.querySelector(".logout-button")
 runFaceCheck();
 
 WebCamera.on('error', function(err) {
-  toastr.warning("Some problem with webcam ... Trying again");
+  console.log("Some problem with webcam ... Trying again");
 })
 
 setInterval(_ => {
