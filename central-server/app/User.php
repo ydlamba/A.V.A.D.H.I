@@ -34,6 +34,8 @@ class User extends Authenticatable
     function isOnline()
     {
         $log = Log::where('mac_address',$this['mac_address'])->orderBy('timestamp','desc')->first();
+        if($log == null)
+            return false;
         $current = Carbon::now('Asia/Kolkata');
         $diffInMinutes = $current->diffInMinutes(Carbon::parse($log['timestamp']));
         if ($diffInMinutes < $this->TIME_LIMIT)
@@ -45,6 +47,10 @@ class User extends Authenticatable
     function lastSeen()
     {
         $log = Log::where('mac_address',$this['mac_address'])->orderBy('timestamp','desc')->first();
+        if($log == null)
+        {
+            return "No Activity, Go do some work!";
+        }
         $current = Carbon::now('Asia/Kolkata');
         $time = Carbon::parse($log['timestamp']);
         return $time->diffForHumans($current);   
