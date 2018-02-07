@@ -17,7 +17,7 @@ class UserController extends Controller
 
 	function index()
 	{
-		dd($this->allOnline());
+		dd($this->userList());
 	}
 
 		function registerMAC(Request $request)
@@ -98,6 +98,12 @@ class UserController extends Controller
 
 			$user = User::where('email',$email)->first();
 
+			if($user === null)
+				abort(404, "Not found");
+
+			if(!$user->profile_pic)
+				abort(404, "Not found");
+
 			return json_encode(['image' => $user->profile_pic]);
 		}
 
@@ -171,4 +177,21 @@ class UserController extends Controller
 			return json_encode([$data,$date,$total]);
 		}
 
+		function userList()
+		{
+			$users = User::get();
+
+			$json = array();
+
+			foreach($users as $user)
+			{
+				$temp = [];
+				$temp['id'] = $user->id;
+				$temp['username'] = $user->username;
+				$temp['name'] = $user->name;
+				array_push($json, $temp);
+			}
+
+			return (json_encode($json));
+		}
 }
