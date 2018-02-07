@@ -1,6 +1,6 @@
 'use strict';
-const builder = require('botbuilder');;
-const commands = require('./commands')
+const builder = require('botbuilder');
+const commands = require('./commands');
 
 const connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
@@ -63,6 +63,20 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
       session.send(reply);
       break;
   }
-
 });
 
+/* Bot Event */
+bot.on('conversationUpdate', function (activity) {
+    var instructions = 'Welcome to ApnaSaathi (the presence bot).';
+    // when user joins conversation, send instructions
+    if (activity.membersAdded) {
+      activity.membersAdded.forEach(function (identity) {
+        if (identity.id === activity.address.bot.id) {
+          var reply = new builder.Message()
+          .address(activity.address)
+          .text(instructions);
+          bot.send(reply);
+        }
+      });
+    }
+});

@@ -17,3 +17,9 @@ server.listen(3978, '0.0.0.0', function () {
 });
 
 server.post('/api/messages', bot.connector('*').listen());
+
+/* Serving Bot Online */
+server.get('/', restify.plugins.serveStatic({
+  directory: __dirname + '/public',
+  default: '/index.html'
+}));

@@ -1,9 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Bot is here!</title>
-</head>
-<body>
+  <head>
+    <link href="https://cdn.botframework.com/botframework-webchat/latest/botchat.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="bot"/>
+    <script src="https://cdn.botframework.com/botframework-webchat/latest/botchat.js"></script>
+    <script src="https://cdn.botframework.com/botframework-webchat/latest/CognitiveServices.js"></script>
+    <script>
+      var speechOptions = {
+        speechRecognizer: new CognitiveServices.SpeechRecognizer( { subscriptionKey: '485a9ca522584e2683c1f2acb202c9c9' } ),
+        speechSynthesizer: new CognitiveServices.SpeechSynthesizer(
+        {
+          subscriptionKey: '485a9ca522584e2683c1f2acb202c9c9',
+          gender: CognitiveServices.SynthesisGender.Female,
+          voiceName: 'Microsoft Server Speech Text to Speech Voice (en-US, JessaRUS)'
+        })
+      }
 
-</body>
+      BotChat.App({
+        directLine: { secret: 'm-Yb4WT5gOo.cwA.dgo.e3TEGxGQejL33plPTNzjML-seN4JCEf_7zy6630K9u4' },
+        user: { id: 'User' },
+        bot: { id: 'ApnaSaathi' },
+        resize: 'detect',
+        speechOptions: speechOptions
+      }, document.getElementById("bot"));
+    </script>
+  </body>
 </html>
