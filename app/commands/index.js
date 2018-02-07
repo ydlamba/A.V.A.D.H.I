@@ -10,5 +10,8 @@ module.exports = {
   },
   botScore: function (id) {
     return rp(url + '/api/time/' + id);
+  },
+  botUsers: function () {
+    return rp(url + '/api/user/list');
   }
 }
