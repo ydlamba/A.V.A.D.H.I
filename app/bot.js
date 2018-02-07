@@ -53,7 +53,8 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
             }
           });
           reply = response.join('\r\n');
-          session.send('STATS: <br>' + reply);
+          session.send('Here are the Stats:');
+          session.send(reply);
         })
         .catch(function (err) {
             throw err;
@@ -68,7 +69,12 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
             response.push(json[k].name + '\n');
           });
           reply = response.join('\r\n');
-          session.send('ONLINE USERS: <br>' + reply);
+          if (reply === '') {
+            session.send('Nobody is here. :(');
+          } else {
+            session.send('Online User:');
+            session.send(reply);
+          }
         })
         .catch(function (err) {
             throw err;
