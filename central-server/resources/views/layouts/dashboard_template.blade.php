@@ -7,20 +7,22 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 	<script src="//cdn.muicss.com/mui-0.9.36/js/mui.min.js"></script>
-	<link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
 	<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js"></script>
 	<title>Login</title>
+	<link rel="stylesheet" href="{{asset('css/dashboard.css')}}">
 </head>
 <body>
 	<section class="main">
 		<header class="page-head">
-			<div class="website-name"><h4><span class="first-letter">A</span>.V.A.D.H.I</h4></div>
+			<a href="/dashboard" class="website-name"><h4><span class="first-letter">A</span>.V.A.D.H.I</h4></a>
 			<div class="right-nav">
-				<img src="{{ asset('/images/profile.jpg')}}" class="profile-pic">
-				<form method="post" class="search-bar"><input type="text"></form>
+				<a class="profile-link" href="/dashboard"> <img src="{{ asset('/images/profile.jpg')}}" class="profile-pic"> </a>
+				<a href="/logout">
+					<i class="fa fa-sign-out logout" aria-hidden="true"></i>
+				</a>
 			</div>
 		</header>	
 		<main> 

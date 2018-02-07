@@ -270,3 +270,34 @@ main {
 .overview-data--mac {
 	margin-left: 5rem;
 }
+
+.profile-link a:active, .profile-link a:link, .profile-link a:visited{
+	text-decoration:none ;
+}
+
+.profile-username {
+	font-size: 1.2rem;
+	font-family: 'Ubuntu', sans-serif ;
+	font-weight: 400;
+	letter-spacing:1px;
+}
+
+.website-name h4{
+	text-decoration: none;
+	color:white;
+}
+
+.website-name:hover {
+	text-decoration:none; 
+}
+
+.profile-username a:link, .profile-username a:hover, .profile-username a:visited {
+	text-decoration: none;
+	color: white;
+}
+
+.logout {
+	color: white;
+	padding-right: 0.5rem;
+	font-size: 2.0rem;
+}

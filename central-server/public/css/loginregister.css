@@ -8,7 +8,7 @@
 
 @media screen and (max-width: 1499px) {
 	html {
-		font-size: 15px;
+		font-size: 13px;
 	}
 }
 
@@ -52,7 +52,6 @@
     	justify-content: center;
     	color: #ffffff;
     	flex-direction: column;
-    	padding: 1.5rem 0;
     }
 
       .website-name {

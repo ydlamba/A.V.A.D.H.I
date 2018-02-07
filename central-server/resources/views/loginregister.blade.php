@@ -20,7 +20,7 @@
 						</span> 
 					</h3>
 					<p class="description">
-						<span class="first-letter">A</span>bsence <span class="first-letter">V</span>alidation and <span class="first-letter">D</span>etection <span class="first-letter">H</span>elping <span class="first-letter">I</span>nstrument
+						<span class="first-letter">A</span>bsence <span class="first-letter">V</span>alidation <span class="first-letter">A</span>nd <span class="first-letter">D</span>etection <span class="first-letter">H</span>elping <span class="first-letter">I</span>nstrument
 					</p>
 				</header>
 				<main class="form-container">
