@@ -1,6 +1,8 @@
-const { remote } = require('electron');
-const path = require('path');
-const url = require('url');
+const { remote } = require("electron");
+const path = require("path");
+const url = require("url");
+const toastr = require("toastr");
+console.log(toastr)
 const WebCamera = require("webcamjs");
 const CONFIG = require("./config/config.js");
 
@@ -49,31 +51,33 @@ $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
         username = options.username || null,
         password = options.password || null;
 
-                xhr.addEventListener('load', function () {
-                    var data = {};
-                    data[options.dataType] = xhr.response;
-                    // make callback and send data
-                    callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
-                });
+        xhr.addEventListener('load', function () {
+            var data = {};
+            data[options.dataType] = xhr.response;
+            // make callback and send data
+            callback(xhr.status, xhr.statusText, data, xhr.getAllResponseHeaders());
+        });
 
-                xhr.open(type, url, async, username, password);
+        xhr.open(type, url, async, username, password);
 
-                // setup custom headers
-                for (var i in headers) {
-                    xhr.setRequestHeader(i, headers[i]);
-                }
+        // setup custom headers
+        for (var i in headers) {
+            xhr.setRequestHeader(i, headers[i]);
+        }
 
-                xhr.responseType = dataType;
-                xhr.send(data);
-            },
-            abort: function () {
-                jqXHR.abort();
+        xhr.responseType = dataType;
+        xhr.send(data);
+        },
+        abort: function () {
+            jqXHR.abort();
             }
         };
   }
 });
 
 const logIn = function() {
+  window.localStorage.setItem('email', userEmailAddress);
+  window.localStorage.setItem('lastLogin', new Date());
   remote
     .getCurrentWindow()
     .loadURL(url.format({
@@ -81,8 +85,45 @@ const logIn = function() {
       protocol: 'file:',
       slashes: true
     }));
-  window.localStorage.setItem('email', userEmailAddress);
-  window.localStorage.setItem('last-login', new Date());
+}
+
+const verifyUserLoginUsingPassword = function() {
+  let userEmail = document.querySelector("#user-email").value;
+  if(userEmail)
+    userEmailAddress = userEmail;
+  let userPassword = document.querySelector("#user-password").value;
+  if (userEmail && userPassword) {
+    if (!validateEmail(userEmail)) {
+      toastr.warning('Enter a valid Email');
+      setTimeout(function() { toastr.clear() }, 3000);
+      return;
+    }
+    else {
+      let loginRoute = CONFIG.serverRoot + "api/login";
+      $.ajax({
+        url: loginRoute,
+        beforeSend: function(xhrObj){
+          xhrObj.setRequestHeader("Content-Type","application/json");
+        },
+        type: "POST",
+        data: JSON.stringify({
+          email: userEmail,
+          password: userPassword
+        })
+      })
+      .done(function(data) {
+        if (data.isValidated) {
+          toastr.success("You are successfully logged in ... be there");
+          logIn();
+        } else toastr.error("Not authorized");
+      })
+      .fail(function() {
+          toastr.error("Error while loggin you in ... might wanna try again");
+      });
+    }
+
+  } else toastr.warning("All required fields are not filled")
+  setTimeout(function() { toastr.clear() }, 3000);
 }
 
 const getLocalImageId = function(blob=null) {
@@ -128,6 +169,7 @@ const getImageIdFromUrl = function(imageUrl) {
 }
 
 const verifyImageIds = function(imageVerificationParams) {
+  let verificationUrl = CONFIG.apiEndpoint + "verify";
   $.ajax({
     url: verificationUrl,
     beforeSend: function(xhrObj){
@@ -141,14 +183,15 @@ const verifyImageIds = function(imageVerificationParams) {
   .done(function(data) {
     if (data.isIdentical)
       logIn();
+    else
+      toastr.error("Are you the one you claim to be");
   })
   .fail(function() {
-      alert("error");
+      toastr.error("Error while verifying face ids");
   });
 }
 
 const startImageVerification = function() {
-/*  getImageIdFromUrl("https://cyrex.southeastasia.cloudapp.azure.com/uploads/fristonio.jpg");*/
   let capturedImageFaceId = getLocalImageId();
   capturedImageFaceId.then(data => {
     console.log("First reuqest data", data)
@@ -178,7 +221,6 @@ const startImageVerification = function() {
               faceId2: secondImageId
             }
             console.log(imageVerificationParams)
-            let verificationUrl = CONFIG.apiEndpoint + "verify";
             if (firstImageId && secondImageId) {
               verifyImageIds(imageVerificationParams);
             }
@@ -187,7 +229,7 @@ const startImageVerification = function() {
             console.log("An error occured   ", err);
           });
       }
-    });
+    })
   })
 };
 
@@ -227,9 +269,10 @@ let snapImage = function() {
 /* Login button click */
 document
   .querySelector("#login-button")
-  .onclick = function() {
+  .onclick = function(e) {
+    e.preventDefault();
     console.log("Logging user in with email and password")
-    logIn();
+    verifyUserLoginUsingPassword();
   }
 
 /* Login Form submit */
@@ -237,7 +280,7 @@ document
   .querySelector("#login-form")
   .onsubmit = function(e) {
     e.preventDefault();
-    logIn();
+    verifyUserLoginUsingPassword();
 }
 
 /* Image Login homepage button click */
@@ -317,7 +360,8 @@ document
   .onsubmit = function(e) {
     e.preventDefault();
     userEmailAddress = document.querySelector(".email-field-input").value;
-    if (validateEmail(userEmailAddress) && currentCapturedImage)
+    if (userEmailAddress && validateEmail(userEmailAddress) && currentCapturedImage)
       startImageVerification();
-    alert('Capture a image and enter email address');
+    toastr.error('Capture a image and enter email address');
+    setTimeout(function() { toastr.clear() }, 3000);
   }

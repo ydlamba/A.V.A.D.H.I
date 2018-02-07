@@ -8,6 +8,10 @@
   text-align: center;
 }
 
+.disabled {
+  visibility: hidden;
+}
+
 .flex {
   display: flex;
 }
@@ -121,3 +125,9 @@
         color: #fff !important;
       }
 
+.logout-button {
+  position: fixed;
+  z-index: 20;
+  top: 3rem;
+  right: 3rem;
+}
