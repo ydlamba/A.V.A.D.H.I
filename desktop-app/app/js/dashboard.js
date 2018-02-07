@@ -1,10 +1,12 @@
 const WebCamera = require("webcamjs");
+const kill = require("tree-kill");
 const CONFIG = require("./config/config.js");
-const { spawn } = require('child_process');
+const { spawn, execFile } = require('child_process');
 const toastr = require("toastr");
 const { remote } = require("electron");
 const path = require("path");
 const url = require("url");
+const fs = require('fs');
 
 const userEmailAddress = window.localStorage.getItem('email');
 const lastLoggedIn = window.localStorage.getItem('lastLogin');
@@ -13,8 +15,11 @@ const MAX_RETRIES = 3;
 let loginRetries = 0;
 const inactivityCheckScript = path.join(__dirname, './../scripts/detect-inactivity.sh');
 const forceLocksScript = path.join(__dirname, './../scripts/force-lock.sh');
+const clientDiscovererScript = path.join(__dirname, './../scripts/client');
 
-const recentImageTaken = null;
+let recentImageTaken = null;
+let discoveryScript = null;
+let compiled = false;
 
 /* GLOBAL Configurations */
 const apiRequestParams = {
@@ -42,6 +47,80 @@ child.unref();
 
 document.querySelector(".last-logged-in-time").innerHTML = lastLoggedIn;
 document.querySelector(".logged-in-user-name").innerHTML = userEmailAddress;
+
+let checkIfPortIsBusy = function(udp) {
+  return new Promise((resolve, reject) => {
+    const dgram = require('dgram');
+    const server = dgram.createSocket('udp4');
+    server.once('error', function(err) {
+      if (err.code === 'EADDRINUSE') {
+        console.log("Address already in use")
+        reject('false');
+      }
+    });
+
+    server.once('listening', function() {
+      server.close();
+      console.log("NO client is listening on port :: " + udp)
+      resolve('true');
+    });
+    server.bind(udp);
+  });
+}
+
+let killServiceAtPort = function(port=null) {
+  if (port) {
+    let getPID = spawn("lsof", ["-i", ":" + port, "-t"]);
+    getPID.stdout.on('data', data => {
+      var decoder = new TextDecoder('utf8');
+      var pid = decoder.decode(data);
+      console.log("Got some PID :: ", pid);
+      let killSpawn = spawn("kill", ['-9', pid]);
+      killSpawn.on('close', code => {
+        runClientDiscovererScript();
+      });
+    })
+  }
+}
+
+let runClientDiscovererScript = function() {
+  if (fs.existsSync(clientDiscovererScript) && compiled) {
+    checkIfPortIsBusy(7447)
+      .then(data => {
+        console.log("Started client to check attendence");
+        discoveryScript = spawn(clientDiscovererScript);
+        discoveryScript.stdout.on('data', data => {
+          var decoder = new TextDecoder('utf8');
+          var b64encoded = decoder.decode(data);
+          console.log("Some data on stdout :: ", b64encoded);
+        })
+        discoveryScript.stderr.on('data', data => {
+          var decoder = new TextDecoder('utf8');
+          var b64encoded = decoder.decode(data);
+          console.log("Err on stderr :: ", b64encoded);
+          killServiceAtPort(7447);
+        })
+        discoveryScript.on('close', data => {
+          console.log("Discovery script closed :: ", data);
+          kill(discoveryScript.pid);
+        });
+      })
+      .catch(err => {
+        console.log("UDP port is already in use");
+        killServiceAtPort(7447);
+      });
+  } else {
+    let scriptPath = clientDiscovererScript + '.c';
+    let clientCompile = spawn("gcc", ["-o", clientDiscovererScript, scriptPath]);
+    compiled = true;
+    clientCompile.on('close', data => {
+      console.log("Client compiled with data :: ", data);
+      runClientDiscovererScript();
+    });
+  }
+}
+
+runClientDiscovererScript();
 
 
 $.ajaxTransport("+binary", function (options, originalOptions, jqXHR) {
@@ -120,6 +199,7 @@ const dataURItoBlob = function(dataURI) {
 }
 
 const runForceLockScreen = function() {
+  killClientDiscovererScript();
   const forceLockProcess = spawn(inactivityCheckScript, [], {
     detached: true,
     stdio: 'ignore'
@@ -131,6 +211,7 @@ const runForceLockScreen = function() {
 const logOut = function(force=false) {
   if (loginRetries >= MAX_RETRIES || force) {
     console.log("USER Is loggin out ... log in again")
+    killServiceAtPort(7447);
     window.localStorage.setItem('email', "");
     window.localStorage.setItem('lastLogin', "");
     remote
@@ -140,8 +221,9 @@ const logOut = function(force=false) {
         protocol: 'file:',
         slashes: true
       }));
-    if (force == false)
+    if (force == false) {
       runForceLockScreen();
+    }
   }
   else {
     console.log("Running face check again");
@@ -258,7 +340,7 @@ const verifyImageIds = function(imageVerificationParams) {
   .done(function(data) {
     console.log("Data on comparing is :: ", data);
     if (data.isIdentical) {
-      console.log("Login verified");
+      toastr.success("Login verified");
       loginRetries = 0;
     } else {
       console.log("Login cannot be verified ....")
@@ -323,4 +405,4 @@ WebCamera.on('error', function(err) {
 
 setInterval(_ => {
   runFaceCheck()
-}, 1000*30*60);
+}, 1000*20);

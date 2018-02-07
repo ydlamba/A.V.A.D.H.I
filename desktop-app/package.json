@@ -13,6 +13,7 @@
     "electron": "^1.7.5",
     "electron-pug": "^1.5.1",
     "toastr": "^2.1.4",
+    "tree-kill": "^1.2.0",
     "webcamjs": "^1.0.24"
   },
   "devDependencies": {
