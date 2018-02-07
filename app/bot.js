@@ -72,7 +72,7 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
           });
           reply = response.join('\r\n');
           if (reply === '') {
-            session.send('Nobody is here. :(');
+            session.send('Nobody is here :(');
           } else {
             session.send('Online User:');
             session.send(reply);
@@ -92,6 +92,10 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
         .catch(function (err) {
             throw err;
         });
+      break;
+
+    case (text.match(/help/) || {}).input:
+      /* Add Help Here */ 
       break;
 
     case 'bot users':
@@ -122,7 +126,7 @@ bot.on('conversationUpdate', function (activity) {
             .then(function (data) {
               data = JSON.parse(data);
               data.forEach(function (user) {
-                users.push(user['name'] + '\n');
+                users.push(user['id'] + '. ' + user['name'] + '\n');
               });
             })
             .catch(function (err) {
