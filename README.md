@@ -2,20 +2,21 @@
 
 **A**bsence **V**erification and **D**etection **H**elping **I**nstrument.
 
-[A.V.A.D.H.I In action](https://www.youtube.com/watch?v=YWZpV6OOou0)
+[A.V.A.D.H.I Video presentation link](https://www.youtube.com/watch?v=YWZpV6OOou0)
 
 ![Avadhi](assets/login_welcome.png)
 
 
-A.V.A.D.H.I, an application developed for Microsoft code.fun.do hackathon. An attempt to support **Digital India** by curbing the problem of false attendence. Every year government loses a lot of money due to this, wages are paid for people who don't exist or are not regular. Digital India aims at providing elegent solutions to day to day problems with the help of technology and so does our app.
+A.V.A.D.H.I, an application developed for Microsoft code.fun.do hackathon. An attempt to support **Digital India** by curbing the problem of false attendance. Every year government loses a lot of money due to this, wages are paid for people who don't exist or are not regular. Digital India aims at providing elegent solutions to day to day problems with the help of technology and so does our app.
 
 Mapping real life problems with theoretical knowledege has proven to be such a boon for the society, we use this as a motivation towards developing AVADHI which uses the client server interface analogy to help us deal with presence of officials at workplaces.
 
 ### Core
 
+
 The core of **AVADHI** consists of scripts and application which detects the presence of users with their virtual identity, which in our model is `mac_address`. We map a user to his mac-address to get the information we need about him, like current presence, past behaviours etc. The main script consists of a broadcaster running on **UDP** protocol which sends UDP broadcast to the subnet every few minutes. Users responds with a TCP connection to the server providing sever the details it needs to know about the user most importantly the **mac_address**. Client application are provided in various forms such as Desktop application, Web Application and Mobile Application. We also aim to provide an IOT based client for the same in near future.
 
-The responses by clients are logged into a central database hosted on **Microsoft Azure Cloud** which can then be accessed by other applicaitons to provide user a unique experince.
+The responses by clients are logged into a central database hosted on **Microsoft Azure Cloud** which can then be accessed by other applications to provide user a unique experince.
 
 Since clients in no way other than storing data into cloud are connected directly to the outer world, this app can be packaged as an ecosystem which in turn can then be used by anyone all around the globe.
 
@@ -34,7 +35,7 @@ We aim at providing more mobile and handy solutions for the same such as mobile 
 
 A web portal is provided to all the clients where they can register themselves for avadhi. This web portal contains a login signup system for users, a dashboard with grphical and textual analytics of their presence in the workplace. To promote healthy competitions among fellow workers we also provide a leaderboard which keeps track of most active members.
 
-A seperate panel for admins is also provided where they can keep track of presence of workers in the workplace. Keeping in mind the amount to which the data terrain for the app can grow we have also implemented a `bot` to assist admins with their access to the portal. The bot is built using **Microsoft Bot Framework** and also uses **Microsoft speech to text API**.
+A separate panel for admins is also provided where they can keep track of presence of workers in the workplace. Keeping in mind the amount to which the data terrain for the app can grow we have also implemented a `bot` to assist admins with their access to the portal. The bot is built using **Microsoft Bot Framework** and also uses **Microsoft speech to text API**.
 
 ![Admin charts](assets/admin_chart.png)
 
@@ -42,7 +43,7 @@ A seperate panel for admins is also provided where they can keep track of presen
 
 #### Desktop Application
 
-A cross-platform desktop application had already been implemented with tons of feature to assist AVADHI. Desktop app consists of a login portal that user had to be logged in with in order to make his attendence count. There are two login methods provided with the application :
+A cross-platform desktop application had already been implemented with tons of feature to assist AVADHI. Desktop app consists of a login portal that user had to be logged in with in order to make his attendance count. There are two login methods provided with the application :
 
 * Password based login
 	Uses the web based api provided by central server in order to log in user. It is similar to the web login portal of AVADHI.
@@ -58,6 +59,7 @@ If user passes the above login check, he is redirected to the dashboard. Dashboa
 ![Pr0x3 Members](assets/pr0x3.png)
 
 _Spot Pr0x3 ^_
+
 
 #### Future Goals
 
