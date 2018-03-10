@@ -95,7 +95,8 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
       break;
 
     case (text.match(/help/) || {}).input:
-      /* Add Help Here */ 
+      reply = 'Available Commands (Case Insensitive):\n 1. bot stats - Show total time spent in work area by each member \n 2. bot online - Show list of all present members \n 3. bot users - Show list of all registered members (with their respective ids) \n 4. bot score $(id) - Show total time spent of member whose id is $(id)\n 5. time - Show current date and time';
+      session.send(reply);
       break;
 
     case 'bot users':
