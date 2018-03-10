@@ -102,7 +102,7 @@ int send_mac_address_to_server(char *mac_address) {
     memset((char *) &sock_addr, 0, sizeof(sock_addr));
     sock_addr.sin_family = AF_INET;
     sock_addr.sin_port = htons(SERVER_PORT);
-    sock_addr.sin_addr.s_addr = inet_addr(IP_ADDR);
+    sock_addr.sin_addr.s_addr = inet_addr(SERVER_ADDR);
 
     if (connect(sock_desc, (struct sockaddr*) &sock_addr, sock_size) == -1)
         return display_error("TCP socket bind failed");
