@@ -105,6 +105,11 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
       session.send(reply);
       break;
 
+    case (text.match(/ping/) || {}).input:
+      reply = "Pong";
+      session.send(reply);
+      break;
+      
     default:
       reply = 'Try something else!';
       session.send(reply);
