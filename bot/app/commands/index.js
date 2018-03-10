@@ -1,5 +1,5 @@
 const rp = require('request-promise');
-const url = 'https://cyrex.southeastasia.cloudapp.azure.com';
+const url = 'https://polestar.southeastasia.cloudapp.azure.com';
 
 module.exports = {
   botOnline: function () {
