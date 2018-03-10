@@ -114,7 +114,8 @@ class UserController extends Controller
             ->sortBy(function($log) {
             	return $log->minutes;
 								})->reverse();	
-
+        // dd($orders);
+		// dd(json_encode($this->getUsernames($orders)));
 		return json_encode($this->getUsernames($orders));
   
 	}
@@ -151,7 +152,7 @@ class UserController extends Controller
 	 				break;
 	 			}
 	 			else
-	 				$order->username = "Not Registered";
+	 				$order->name = "Not Registered";
 
 	 		}
 	 	}
@@ -164,6 +165,7 @@ class UserController extends Controller
 		$user = User::where('id',$id)->first();
 		$data = $user->hoursActiveInAWeek(Carbon::today('Asia/Kolkata'));
 		$date = $user->daysOfAWeek();
+		// dd($date);
 
 		$total = 0;
 		foreach( $data as $time){
@@ -209,7 +211,24 @@ class UserController extends Controller
 		$this->check_admin();
 		$leaderboard = json_decode($this->leaderboard());
 
-		return view('admin_line', ['message'=>'', 'error'=>'']);
+		$data = [];
+
+
+
+		foreach ($leaderboard as $leader) {
+			$user = User::where('mac_address',$leader->mac_address)->first();
+			$alldata = json_decode($this->parseGraph($user->id));
+			// dd($alldata[0]);
+			$data[$user->name]['data'] = $alldata[0];
+			// $data[$user->name] = [];
+			// array_push($data[$user->name], $alldata[0]);
+			// array_push($data[$user->name], $alldata[2]);
+			$data[$user->name]['total'] = $alldata[2];
+			// $data[$user->name]['total'] = $alldata[2];
+			$data[$user->name]['dates'] = $alldata[1];
+		}
+		// dd($data);
+		return view('admin_line', ['message'=>'', 'error'=>'', 'data' => $data]);
 
 	}
 
@@ -231,5 +250,22 @@ class UserController extends Controller
 		$this->check_admin();
 		return view('admin_sathi',['message'=>'','error'=>'']);
 	}
+
+	// function populate() 
+	// {
+	// 	$this->check_admin();
+
+	// 	$logs = DB::connection('mysql2')->select('select * from log where data="a0:d3:7a:29:64:a9"');
+
+	// 	$i=1270;
+
+	// 	foreach ($logs as $log)
+	// 	{
+	// 		DB::connection('mysql2')->insert('insert into test_logs(id,mac_address,ip_address,timestamp) values ('.$i.',"a0:d3:7a:29:64:a9","192.168.2.102","'.Carbon::createFromTimestamp($log->time)->addMonth()->addDays(2).'")');
+	// 		$i = $i+1;
+	// 	}
+	// 	die('done');
+
+	// }
 
 }

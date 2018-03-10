@@ -17,28 +17,41 @@
 	</div>
 	<script>
 		var ctx = document.getElementById("line-chart");
+        var colors = ['#FFB1C1', '#FFCF9F','#4BC0C0', '#9AD0F5'];
+
+        var dataset = []
+        var date = []
+        var cIndex = 0;
+        @foreach ($data as $user => $userdata)
+            date = [];
+            var temp_data = [];
+            @for ($i = 19; $i >= 0; $i--)
+                temp_data.push("{{$userdata['data'][$i]}}");
+            @endfor
+            var temp = {
+                    label: "{{$user}}",
+                    backgroundColor: colors[(cIndex + 1) % 4],
+                    borderColor: colors[(cIndex + 1) % 4],
+                    data: temp_data,
+                    fill: false,
+                }
+            dataset.push(temp);
+            
+            @for ($i = 19; $i >= 0; $i--)
+                date.push("{{$userdata['dates'][$i]}}");
+            @endfor  
+            cIndex = cIndex +1;
+        @endforeach
+
+        // console.log(dataset)
+
+       
 
 		var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
-                datasets: [{
-                    label: "kataria",
-                    backgroundColor: '#FFB1C1',
-                    borderColor: '#FFB1C1',
-                    data: [
-                        4,3,1,2,3,4,1
-                    ],
-                    fill: false,
-                }, {
-                    label: "kataria1",
-                    fill: false,
-                    backgroundColor: '#4BC0C0',
-                    borderColor: '#4BC0C0',
-                    data: [
-                        3,2,5,2,4,1,6
-                    ],
-                }]
+                labels: date,
+                datasets: dataset
             },
             options: {
                 tooltips: {

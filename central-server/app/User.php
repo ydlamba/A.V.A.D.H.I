@@ -72,7 +72,7 @@ class User extends Authenticatable
 
 		$time_week = array();
 
-		for ($i=0; $i<7; $i++){
+		for ($i=0; $i<20; $i++){
 			$temp = clone $today;
 			$temp2 = clone $temp;
 			$temp_before = $temp2->subDays(1);
@@ -88,7 +88,7 @@ class User extends Authenticatable
 	{
 		$now = Carbon::today();
 		$week = array();
-		for($i=0; $i<7; $i++)
+		for($i=0; $i<20; $i++)
 		{
 			array_push($week, $now->format('d/m'));
 			$now->subDays(1);
