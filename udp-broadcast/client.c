@@ -94,7 +94,7 @@ int send_mac_address_to_server(char *mac_address) {
     int sock_desc, recv_len;
     char buf[BUFLEN];
 
-    if ((sock_desc = socket(PF_INET, SOCK_DGRAM, IPPROTO_IP)) == -1) {
+    if ((sock_desc = socket(PF_INET, SOCK_STREAM, IPPROTO_IP)) == -1) {
         display_error("Socket creation failed");
         return 1;
     }
