@@ -86,7 +86,8 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
     case (text.match(/bot score/) || {}).input:
       commands.botScore(text.split(' ')[2])
         .then(function (data) {
-          reply = data[2] + ' hours';
+          var array = JSON.parse(data);
+          reply = array[2] + ' hours';
           session.send(reply);
         })
         .catch(function (err) {
@@ -109,7 +110,7 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
       reply = "Pong";
       session.send(reply);
       break;
-      
+
     default:
       reply = 'Try something else!';
       session.send(reply);
