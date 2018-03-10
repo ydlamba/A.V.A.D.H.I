@@ -124,6 +124,7 @@ bot.on('conversationUpdate', function (activity) {
           bot.send(reply);
           commands.botUsers()
             .then(function (data) {
+              users = [];
               data = JSON.parse(data);
               data.forEach(function (user) {
                 users.push(user['id'] + '. ' + user['name'] + '\n');
