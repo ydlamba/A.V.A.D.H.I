@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.pathak.avadhi.HomeActivity"></activity>
+        <service android:name=".NotificationService"/>
     </application>
 
 </manifest>
