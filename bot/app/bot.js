@@ -51,7 +51,7 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
           json = JSON.parse(json);
           Object.keys(json).forEach(function(k){
             if (json[k].username !== 'Not Registered') {
-              response.push(json[k].name + ' - ' + parseInt(json[k].minutes)/60 + ' hours\n');
+              response.push(json[k].name + ' - ' + (parseInt(json[k].minutes)/60).toFixed(2) + ' hours\n');
             }
           });
           reply = response.join('\r\n');
@@ -96,7 +96,7 @@ const bot = module.exports = new builder.UniversalBot(connector, function (sessi
       break;
 
     case (text.match(/help/) || {}).input:
-      reply = 'Available Commands (Case Insensitive):\n 1. bot stats - Show total time spent in work area by each member \n 2. bot online - Show list of all present members \n 3. bot users - Show list of all registered members (with their respective ids) \n 4. bot score $(id) - Show total time spent of member whose id is $(id)\n 5. time - Show current date and time';
+      reply = 'Available Commands (Case Insensitive):\n 1. bot stats - Show total time spent in work area by each member \n 2. bot online - Show list of all present members \n 3. bot users - Show list of all registered members (with their respective ids) \n 4. bot score $(id) - Show total time spent of member whose id is $(id)\n 5. time - Show current date and time \n 6. ping - To check whether bot is alive or not';
       session.send(reply);
       break;
 
