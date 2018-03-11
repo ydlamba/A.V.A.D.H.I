@@ -53,7 +53,10 @@ class UserController extends Controller
 		$all = json_decode($this->parseGraph($user->id));
 		$data = $all[0];
 		$date = $all[1];
-		$total = $all[2];
+		// $total = $all[2];
+
+		$logs = Log::where('mac_address', $user->mac_address)->get();
+		$total = count($logs)/60;
 
 		return view('dashboard_bar', ['total' => $total, 'data' => $data, 'date' => $date, 'message' => '', 'error' => '']);
 	} 
@@ -123,7 +126,17 @@ class UserController extends Controller
 	function allOnline()
 	{
 		$recent = Carbon::now('Asia/Kolkata')->subMinutes(500);
-		$online = Log::where('timestamp','>', $recent)->get();
+		// $online = Log::where('timestamp','>', $recent)->first();
+
+
+
+		$online = DB::table('logs')
+            ->select('mac_address')
+            ->where('timestamp','>',$recent)
+            ->groupBy('mac_address')
+            ->get();
+
+        // dd($online);
 
 		return json_encode($this->getUsernames($online));
 	}
@@ -213,18 +226,22 @@ class UserController extends Controller
 
 		$data = [];
 
-
-
+		// dd($leaderboard);
 		foreach ($leaderboard as $leader) {
+			// echo($leader->mac_address);
+			$user = User::where('mac_address',$leader->mac_address)->first();
+			if(empty($user))
+			{
+				continue;
+			}
+
 			$user = User::where('mac_address',$leader->mac_address)->first();
 			$alldata = json_decode($this->parseGraph($user->id));
-			// dd($alldata[0]);
+			
 			$data[$user->name]['data'] = $alldata[0];
-			// $data[$user->name] = [];
-			// array_push($data[$user->name], $alldata[0]);
-			// array_push($data[$user->name], $alldata[2]);
+			
 			$data[$user->name]['total'] = $alldata[2];
-			// $data[$user->name]['total'] = $alldata[2];
+			
 			$data[$user->name]['dates'] = $alldata[1];
 		}
 		// dd($data);

@@ -30,13 +30,7 @@
 		<div class="overview-container">
 				<span class="overview-label"> MAC:</span> <span class="overview-data overview-data--mac">{{$user->mac_address}}</span>
 		</div>	
-		<div class="overview-container">
-			@if ($user->isOnline())
-				<span class="overview-label">Status: </span> <span class="overview-data"> Online </span>
-			@else
-				<span class="overview-label"> Last Seen:</span> <span class="overview-data">{{$user->lastSeen()}}</span>
-			@endif
-		</div>
+		
 	@endif
 
 @endsection

@@ -36,8 +36,10 @@ class User extends Authenticatable
 		$log = Log::where('mac_address',$this['mac_address'])->orderBy('timestamp','desc')->first();
 		if($log == null)
 			return false;
-		$current = Carbon::now('Asia/Kolkata');
+		$current = Carbon::now();
+		// dd(Carbon::parse($log['timestamp'])->setTimezone('Asia/Kolkata'));
 		$diffInMinutes = $current->diffInMinutes(Carbon::parse($log['timestamp']));
+		// dd($current);
 		if ($diffInMinutes < $this->TIME_LIMIT)
 			return true;
 
@@ -86,7 +88,7 @@ class User extends Authenticatable
 
 	function daysOfAWeek()
 	{
-		$now = Carbon::today();
+		$now = Carbon::today('Asia/Kolkata');
 		$week = array();
 		for($i=0; $i<20; $i++)
 		{
