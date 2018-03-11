@@ -3,6 +3,8 @@
     package="com.example.pathak.avadhi">
 
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -20,6 +22,7 @@
         </activity>
         <activity android:name="com.example.pathak.avadhi.HomeActivity"></activity>
         <service android:name=".NotificationService"/>
+        <service android:name=".DeamonService"/>
     </application>
 
 </manifest>

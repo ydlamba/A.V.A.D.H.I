@@ -14,6 +14,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Intent myIntent = new Intent(HomeActivity.this, NotificationService.class);
         startService(myIntent);
+        Intent deamonIntent = new Intent(HomeActivity.this, DeamonService.class);
+        startService(deamonIntent);
     }
 
 }

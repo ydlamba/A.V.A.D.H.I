@@ -16,49 +16,62 @@ import android.widget.Toast;
 
 
 public class NotificationService extends Service {
-    String tag="MyService";
+    String tag = "MyService";
     Context context = this;
     private Handler m_handler;
     final int notificationId = 100;
-    final int notificationDelay = 10000;
+    final int notificationDelay = 100;
     int notif = 1;
-    Runnable m_statusChecker = new Runnable() {
-        @Override
-        public void run() {
-            sendNotification();
-            m_handler.postDelayed(m_statusChecker, notificationDelay);
-            if (notif > 2)
-                m_handler.removeCallbacks(m_statusChecker);
-        }
-    };
+//    Runnable m_statusChecker = new Runnable() {
+//        @Override
+//        public void run() {
+//            sendNotification();
+//            m_handler.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if (notif > 2) {
+//                        m_handler.removeCallbacks(m_statusChecker);
+//                    }
+//                }
+//            }, notificationDelay);
+//
+//        }
+//    };
 
     @Override
-    public IBinder onBind(Intent intent){
+    public IBinder onBind(Intent intent) {
         return null;
     }
+
     @Override
-    public void onCreate(){
+    public void onCreate() {
         super.onCreate();
-        m_handler = new Handler();
+       // m_handler = new Handler();
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId){
+    public int onStartCommand(Intent intent, int flags, int startId) {
         startRepeatingTask();
         return START_STICKY;
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
     }
 
     void startRepeatingTask() {
-        m_statusChecker.run();
+            Handler newHandler = new Handler();
+            newHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    sendNotification();
+                }
+            },60000);
+        //m_statusChecker.run();
     }
 
     public void sendNotification() {
-        if (notif == 2) {
             NotificationManager nm = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
             Notification.Builder builder = new Notification.Builder(context);
             Intent notificationIntent = new Intent(context, MainActivity.class);
@@ -81,7 +94,7 @@ public class NotificationService extends Service {
             builder.setContentIntent(pendingSwitchIntent);
 
             // Clear previous notification
-            NotificationManager nman = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager nman = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             nman.cancel(notificationId);
 
             // Notify to user
@@ -92,8 +105,7 @@ public class NotificationService extends Service {
             startActivity(intent);
 
             stopService(new Intent(this, NotificationService.class));
-        }
-        notif += 1;
+
     }
 
 }
