@@ -33,8 +33,8 @@
 #define BUFLEN           512
 #define BROADCAST_PORT   7447
 #define LISTEN_PORT      7777
-#define BROADCAST_ADDR   "255.255.255.255"
-#define BROADCAST_DELAY  60
+#define BROADCAST_ADDR   "192.168.0.255"
+#define BROADCAST_DELAY  3
 #define MAX_TCP_CONN     10
 
 
@@ -75,7 +75,7 @@ int mysql_connection_init() {
     struct mysql_conn_config config;
     config.server    = "localhost";   // where the mysql database is
     config.user      = "root";        // the root user of mysql   
-    config.password  = "password";    // the password of the root user in mysql
+    config.password  = "Pathak@123";    // the password of the root user in mysql
     config.database  = "avadhi";      // the databse to pick
 
     MYSQL *connection = mysql_init(NULL);
