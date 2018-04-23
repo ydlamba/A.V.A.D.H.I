@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^1.7.5",
+    "electron": "^1.8.2-beta5",
     "electron-pug": "^1.5.1",
     "toastr": "^2.1.4",
     "tree-kill": "^1.2.0",
