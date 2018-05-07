@@ -18,13 +18,13 @@
   },
   "homepage": "https://github.com/ydlamba/A.V.A.D.H.I#readme",
   "dependencies": {
-    "botbuilder": "^3.14.0",
-    "dotenv-extended": "^2.0.1",
-    "request": "^2.83.0",
+    "botbuilder": "^3.15.0",
+    "dotenv-extended": "^2.0.2",
+    "request": "^2.85.0",
     "request-promise": "^4.2.2",
-    "restify": "^6.3.4"
+    "restify": "^7.1.1"
   },
   "devDependencies": {
-    "nodemon": "^1.14.12"
+    "nodemon": "^1.17.4"
   }
 }
