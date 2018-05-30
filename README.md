@@ -63,12 +63,12 @@ _Spot Pr0x3 ^_
 
 #### Future Goals
 
-The aim of AVADHI was to make presence detection and verification reliable and easy. We are a long way from where we started, but there is a lot to do to improve. Our main aim would be to scale the app more and make it more accessible to even those coming from less technological backgrounds. This would include a more wider support towards client base and a more reliable central-server. One of the major future goals of AVADHI is to make an api which can help other developers to analyse the data and work with it. A list of goals is summarised below.
+The aim of A.V.A.D.H.I is to make presence detection, verification reliable and easy. We are a long way from where we started, but there is a lot to do to improve. Our main aim would be to scale the app more and make it more accessible to even those coming from less technological backgrounds. This would include a more wider support towards client base and a more reliable central-server. One of the major future goals of A.V.A.D.H.I is to make an API which can help other developers to analyse the data and work with it. A list of goals is summarised below.
 
 - [x] Create an android client for A.V.A.D.H.I
 
-- [ ] Create an IoT based solution for A.V.A.D.H.I to make it more accessible and less resource sesitive.
+- [ ] Create an IoT based solution for A.V.A.D.H.I to make it more accessible and less resource sensitive.
 
-- [x] Develop an api for A.V.A.D.H.I
+- [x] Develop an API for A.V.A.D.H.I
 
 
